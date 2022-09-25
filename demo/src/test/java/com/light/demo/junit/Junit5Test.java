@@ -1,53 +1,48 @@
 package com.light.demo.junit;
 
-import org.junit.*;
+import org.junit.jupiter.api.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public class Junit4Test {
+public class Junit5Test {
 
     /**
-     * 生命周期：@BeforeClass,@AfterClass,@Before,@After
+     * 生命周期：@BeforeAll, @AfterAll, @BeforeEach, @AfterEach
      */
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         System.out.println("在单元测试执行前调用，只执行一次");
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterClass() {
         System.out.println("在单元测试执行后调用，只执行一次");
     }
 
-    @Before
+    @BeforeEach
     public void before() {
         System.out.println("在任何测试方法执行前调用");
     }
 
-    @After
+    @AfterEach
     public void after() {
         System.out.println("在任何测试方法执行后调用");
     }
 
-    /**
-     * 忽略该测试方法
-     */
-    @Ignore
+    @Disabled
     @Test
     public void ignore() {
         System.out.println("该方法被忽略");
     }
 
+
     /**
      * 断言测试
      */
     @Test
-    public void assertEqualsTest() {
-        System.out.println("测试等值断言");
-        assertEquals("当断言失败后，打出该提示信息",2, 1 + 1);
-        assertFalse(false);
-        assertTrue(true);
-        assertNotNull("");
-        assertNull(null);
+    public void assertTest() {
+        assumeTrue("abc".contains("a"));
+        assertEquals(2, 1 + 1);
     }
 }
