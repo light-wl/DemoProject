@@ -3,6 +3,7 @@ package com.light.demo.junit;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public class Junit5Test {
@@ -44,5 +45,17 @@ public class Junit5Test {
     public void assertTest() {
         assumeTrue("abc".contains("a"));
         assertEquals(2, 1 + 1);
+    }
+
+    /**
+     * 抛出异常测试
+     * */
+    @Test
+    @DisplayName("自定义测试方法的名称")
+    void assertThrowsException() {
+        String str = null;
+        assertThrows(IllegalArgumentException.class, () -> {
+            Integer.valueOf(str);
+        });
     }
 }
