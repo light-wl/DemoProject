@@ -1,20 +1,19 @@
-package com.light.demo.junit4.example;
+package com.light.demo.junit4;
 
-import com.light.demo.junit.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Example {
+public class ServiceOne {
 
     @Autowired
-    private JunitFactory junitFactory;
+    private ServiceTwo serviceTwo;
 
     public int add(int one, int two){
         return one + two;
     }
 
     public String getBean(){
-        return junitFactory.getBean();
+        return serviceTwo.getBean();
     }
 }

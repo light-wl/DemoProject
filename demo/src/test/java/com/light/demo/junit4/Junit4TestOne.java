@@ -1,10 +1,10 @@
-package com.light.demo.junit;
+package com.light.demo.junit4;
 
 import org.junit.*;
 
 import static org.junit.Assert.*;
 
-public class Junit4Test {
+public class Junit4TestOne {
 
     /**
      * 生命周期：@BeforeClass,@AfterClass,@Before,@After

@@ -1,9 +1,9 @@
-package com.light.demo.junit4.example;
+package com.light.demo.junit4;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class JunitFactory {
+public class ServiceTwo {
     public String getBean(){
         return "bean";
     }
