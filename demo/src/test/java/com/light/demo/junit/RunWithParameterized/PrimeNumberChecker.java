@@ -1,4 +1,4 @@
-package com.light.demo.junit;
+package com.light.demo.junit.RunWithParameterized;
 
 /**
  * PrimeNumberChecker.

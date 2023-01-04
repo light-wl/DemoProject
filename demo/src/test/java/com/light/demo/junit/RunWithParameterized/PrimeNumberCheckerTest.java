@@ -1,22 +1,23 @@
-package com.light.demo.junit;
+package com.light.demo.junit.RunWithParameterized;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
-@RunWith(Parameterized.class) // 步骤一: 指定定参数运行器
+/***
+ * 步骤一: 指定定参数运行器
+ */
+@RunWith(Parameterized.class)
 public class PrimeNumberCheckerTest {
     /**
      * 步骤二：声明变量
      */
     private Integer inputNumber;
     private Boolean expectedResult;
-    private PrimeNumberChecker primeNumberChecker;
 
     /**
      * 步骤三：为测试类声明一个带有参数的公共构造函数，为变量赋值
@@ -36,7 +37,7 @@ public class PrimeNumberCheckerTest {
      * 5）该方法没有参数
      */
     @Parameterized.Parameters
-    public static Collection primeNumbers() {
+    public static List primeNumbers() {
         return Arrays.asList(new Object[][]{
                 {2, true},
                 {6, false},
@@ -46,18 +47,13 @@ public class PrimeNumberCheckerTest {
         });
     }
 
-    @Before
-    public void initialize() {
-        primeNumberChecker = new PrimeNumberChecker();
-    }
-
     /**
      * 步骤五：编写测试方法，使用自定义变量进行测试
      */
     @Test
     public void testPrimeNumberChecker() {
         System.out.println("Parameterized Number is : " + inputNumber);
-        Assert.assertEquals(expectedResult, primeNumberChecker.validate(inputNumber));
+        Assert.assertEquals(expectedResult, PrimeNumberChecker.validate(inputNumber));
     }
 
 }

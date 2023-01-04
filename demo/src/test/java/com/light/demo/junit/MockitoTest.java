@@ -38,17 +38,17 @@ public class MockitoTest {
     @Test
     public void helloWorldTest() {
         // mock DemoDao instance
-        DemoDao mockDemoDao = mock(DemoDao.class);
+        ServiceTwo mockServiceTwo = mock(ServiceTwo.class);
 
         // 使用 mockito 对 getDemoStatus 方法打桩
-        when(mockDemoDao.getDemoStatus()).thenReturn(1);
+        when(mockServiceTwo.getDemoStatus()).thenReturn(1);
 
         // 调用 mock 对象的 getDemoStatus 方法，结果永远是 1
-        Assert.assertEquals(1, mockDemoDao.getDemoStatus());
+        Assert.assertEquals(1, mockServiceTwo.getDemoStatus());
 
         // mock DemoService
-        DemoService mockDemoService = new DemoService(mockDemoDao);
-        Assert.assertEquals(1, mockDemoService.getDemoStatus());
+        ServiceOne mockServiceOne = new ServiceOne(mockServiceTwo);
+        Assert.assertEquals(1, mockServiceOne.getDemoStatus());
     }
 
 
@@ -79,7 +79,7 @@ public class MockitoTest {
     @Test
     public void test_spy() {
 
-        DemoService spyExampleService = spy(new DemoService());
+        ServiceOne spyExampleService = spy(new ServiceOne());
 
         // 默认会走真实方法
         Assert.assertEquals(3, spyExampleService.add(1, 2));
@@ -88,7 +88,7 @@ public class MockitoTest {
         when(spyExampleService.add(1, 2)).thenReturn(10);
         Assert.assertEquals(10, spyExampleService.add(1, 2));
 
-        // 但是参数比匹配的调用，依然走真实方法
+        // 但是参数不匹配的调用，依然走真实方法
         Assert.assertEquals(3, spyExampleService.add(2, 1));
 
     }
