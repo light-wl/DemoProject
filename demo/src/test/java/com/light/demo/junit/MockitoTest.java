@@ -38,17 +38,17 @@ public class MockitoTest {
     @Test
     public void helloWorldTest() {
         // mock DemoDao instance
-        ServiceTwo mockServiceTwo = mock(ServiceTwo.class);
+        MockitoServiceTwo mockMockitoServiceTwo = mock(MockitoServiceTwo.class);
 
         // 使用 mockito 对 getDemoStatus 方法打桩
-        when(mockServiceTwo.getDemoStatus()).thenReturn(1);
+        when(mockMockitoServiceTwo.getDemoStatus()).thenReturn(1);
 
         // 调用 mock 对象的 getDemoStatus 方法，结果永远是 1
-        Assert.assertEquals(1, mockServiceTwo.getDemoStatus());
+        Assert.assertEquals(1, mockMockitoServiceTwo.getDemoStatus());
 
         // mock DemoService
-        ServiceOne mockServiceOne = new ServiceOne(mockServiceTwo);
-        Assert.assertEquals(1, mockServiceOne.getDemoStatus());
+        MockitoServiceOne mockMockitoServiceOne = new MockitoServiceOne(mockMockitoServiceTwo);
+        Assert.assertEquals(1, mockMockitoServiceOne.getDemoStatus());
     }
 
 
@@ -79,7 +79,7 @@ public class MockitoTest {
     @Test
     public void test_spy() {
 
-        ServiceOne spyExampleService = spy(new ServiceOne());
+        MockitoServiceOne spyExampleService = spy(new MockitoServiceOne());
 
         // 默认会走真实方法
         Assert.assertEquals(3, spyExampleService.add(1, 2));

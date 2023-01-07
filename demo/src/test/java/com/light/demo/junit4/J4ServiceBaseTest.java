@@ -1,10 +1,14 @@
 package com.light.demo.junit4;
 
 import org.junit.*;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
-public class Junit4TestOne {
+@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = DemoApplication.class)
+public class J4ServiceBaseTest {
 
     /**
      * 生命周期：@BeforeClass,@AfterClass,@Before,@After
@@ -44,10 +48,12 @@ public class Junit4TestOne {
     @Test
     public void assertEqualsTest() {
         System.out.println("测试等值断言");
-        assertEquals("当断言失败后，打出该提示信息",2, 1 + 1);
+        assertEquals("当断言失败后，打出该提示信息", 2, 1 + 1);
         assertFalse(false);
         assertTrue(true);
         assertNotNull("");
         assertNull(null);
     }
+
+
 }

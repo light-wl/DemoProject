@@ -4,17 +4,13 @@ import com.light.demo.util.DateTimeUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 
 //@RunWith(PowerMockRunner.class)
@@ -31,7 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({DateTimeUtil.class})
-public class ServiceOneTest {
+public class J4Service1Test {
 
 
     /**
@@ -41,8 +37,8 @@ public class ServiceOneTest {
     @Test
     @Order(1)
     public void Test01() {
-        ServiceOne serviceOne = new ServiceOne();
-        int ans = serviceOne.add(1, 1);
+        J4Service1 j4Service1 = new J4Service1();
+        int ans = j4Service1.add(1, 1);
         Assert.assertEquals(2, ans);
     }
 
@@ -53,16 +49,16 @@ public class ServiceOneTest {
      * 需要使用@Mock；主类需要使用@InjectMocks
      */
     @InjectMocks
-    private ServiceOne serviceOne;
+    private J4Service1 j4Service1;
 
     @Mock
-    private ServiceTwo serviceTwo;
+    private J4Service2 j4Service2;
 
     @Test
     @Order(2)
     public void Test02() {
-        Mockito.when(serviceTwo.getBean()).thenReturn("123");
-        String result = serviceOne.getBean();
+        Mockito.when(j4Service2.getBean()).thenReturn("123");
+        String result = j4Service1.getBean();
         Assert.assertEquals("123", result);
     }
 
@@ -85,12 +81,12 @@ public class ServiceOneTest {
      * @SpringBootTest
      */
     @Autowired
-    private ServiceOne serviceOneTwo;
+    private J4Service1 j4Service1Two;
 
     @Test
     @Order(4)
     public void Test04() {
-        String result = serviceOneTwo.getBean();
+        String result = j4Service1Two.getBean();
         Assert.assertEquals("bean", result);
     }
 

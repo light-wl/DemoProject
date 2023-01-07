@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public class Junit5Test {
+public class J5ServiceBaseTest {
 
     /**
      * 生命周期：@BeforeAll, @AfterAll, @BeforeEach, @AfterEach
