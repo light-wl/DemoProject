@@ -1,23 +1,34 @@
 package com.light.demo.redis;
 
-import redis.clients.jedis.BinaryClient;
+import redis.clients.jedis.GeoUnit;
 import redis.clients.jedis.Jedis;
+
 import java.util.*;
 
-public class JedisTest {
+public class JedisUtil {
+    private static Jedis jedis;
 
     public static void main(String[] args) {
+        connect();
+//        testRedis();
 //        testString();
 //        testMap();
-        testList();
+//        testList();
 //        testSet();
 //        testSortSet();
+//        testBitMap();
+        testHyperLogLog();
     }
 
-    public static Jedis connect() {
+    public static void connect() {
         //从redis 连接池中获取
-        Jedis jedis = JedisPoolUtil.getJedis();
-        return jedis;
+        jedis = JedisPoolUtil.getJedis();
+    }
+
+    /**
+     * 查看所有的key：keys *
+     */
+    public static void testRedis() {
     }
 
     /**
@@ -26,7 +37,6 @@ public class JedisTest {
      * 比如 jpg 图片或者序列化的对象。从内部实现来看其实 string 可以看作 byte数组,最大上限是 1G 字节
      */
     public static void testString() {
-        Jedis jedis = connect();
         jedis.set("name", "abel");
         // set 多个key and value
         jedis.mset("name", "abel", "age", "23", "qq", "123244232");
@@ -48,10 +58,11 @@ public class JedisTest {
         map.put("address", "上海");
         map.put("name", "abel");
         map.put("age", "23");
-        Jedis jedis = connect();
         jedis.hmset("user", map);
 
-        // 从map 中取出 value
+        // 从map 中取出 value，单值取value
+        String str = jedis.hget("user", "address");
+
         // 第一个参数是存入redis中map对象的key，后面跟的是放入map中的对象的key，后面的key可以跟多个，是可变
         List<String> getmap = jedis.hmget("user", "address");
         System.out.println(getmap);
@@ -77,7 +88,6 @@ public class JedisTest {
      * list 是一个链表结构,可以理解为一个每个子元素都是 string 类型的双向链表
      */
     private static void testList() {
-        Jedis jedis = connect();
         //移除 lists 中所有的内容
         jedis.del("lists");
 
@@ -112,30 +122,57 @@ public class JedisTest {
     }
 
     /**
-     *
      * set 是无序集合,最大可以包含(2 的 32 次方-1)40多亿个元素。
-     * set 的是通过 hash table 实现的, 所以添加,删除,查找的复杂度都是 O(1)。hash table 会随着添加或者删除自动的调整大小。
+     * set 的是通过 hash table 和数组实现的, 所以添加,删除,查找的复杂度都是 O(1)。hash table 会随着添加或者删除自动的调整大小。
+     * 基本操作：sadd,srem,smembers,scard,sunion,sdiff,sinter
      */
     public static void testSet() {
-        Jedis jedis = connect();
         jedis.sadd("person", "abel1");
         jedis.sadd("person", "abel2");
         jedis.sadd("person", "abel3");
         jedis.sadd("person", "abel4");
         jedis.sadd("person", "abel4");
 
-        //获取所有加入的value
-        System.out.println(jedis.smembers("person"));
+        System.out.println("初始集合数据" + jedis.smembers("person"));
+
         // 从 person 中 移除 abel4
         jedis.srem("person", "abel4");
-        //获取所有加入的value
-        System.out.println("values: " + jedis.smembers("person"));
-        //判断 abels 是否是 person 集合的元素
-        System.out.println(jedis.sismember("person", "abels"));
-        //返回集合中的一个随机元素
-        System.out.println(jedis.srandmember("person"));
-        //返回集合的元素个数
-        System.out.println(jedis.scard("person"));
+        System.out.println("srem删除abel4后: " + jedis.smembers("person"));
+
+
+        System.out.println("判断 abels 是否是 person 集合的元素：" + jedis.sismember("person", "abels"));
+
+        System.out.println("返回集合中的一个随机元素：" + jedis.srandmember("person"));
+
+        System.out.println("返回集合的元素个数：" + jedis.scard("person"));
+
+        //集合操作，并集，交集，差集
+        String dateOne = "user:id:20200803";
+        String dateTwo = "user:id:20200804";
+        jedis.del(dateOne);
+        jedis.del(dateTwo);
+        jedis.sadd(dateOne, "1");
+        jedis.sadd(dateOne, "2");
+        jedis.sadd(dateOne, "3");
+        jedis.sadd(dateOne, "4");
+        System.out.println("集合1：" + jedis.smembers(dateOne));
+
+
+        jedis.sadd(dateTwo, "4");
+        jedis.sadd(dateTwo, "5");
+        jedis.sadd(dateTwo, "6");
+        System.out.println("集合2：" + jedis.smembers(dateTwo));
+
+
+        //并集
+        System.out.println("并集：" + jedis.sunion(dateOne, dateTwo));
+
+        //交集
+        System.out.println("交集：" + jedis.sinter(dateOne, dateTwo));
+
+        //差集（获取一个集合中有的元素而其他集合没有的元素）
+        System.out.println("差集：" + jedis.sdiff(dateOne, dateTwo));
+
     }
 
     /**
@@ -147,7 +184,6 @@ public class JedisTest {
      * 通过权值可以有序的获取集合中的元素添加，删除，查找的复杂度都是O(1)
      */
     public static void testSortSet() {
-        Jedis jedis = connect();
         System.out.println(jedis.flushDB());
         jedis.zadd("sortKey", 300, "abel");
         jedis.zadd("sortKey", 20, "mysql");
@@ -176,5 +212,44 @@ public class JedisTest {
         System.out.println(jedis.zrank("sortKey", "mysql"));
         // 输出整个集合值
         System.out.println("输出整个集合值： " + jedis.zrange("sortKey", 0, -1));
+    }
+
+    /**
+     * 我们就可以选择 Bitmap。这是 Redis 提供的扩展数据类型。我来给你解释一下它的实现原理。
+     * Bitmap 本身是用 String 类型作为底层数据结构实现的一种统计二值状态的数据类型。
+     * String 类型是会保存为二进制的字节数组，所以，Redis 就把字节数组的每个 bit 位利用起来，用来表示一个元素的二值状态。
+     * 你可以把 Bitmap 看作是一个 bit 数组。
+     */
+    public static void testBitMap() {
+        String key = "uid:sign:3000:202008";
+        jedis.setbit(key, 2, String.valueOf(1));
+        System.out.println("查看用户在3号的签到状况，1在0否：" + jedis.getbit(key, 2));
+
+        System.out.println("统计该用户在 8 月份的签到次数:" + jedis.bitcount(key));
+    }
+
+    /**
+     * HyperLogLog 是一种用于统计基数的数据集合类型，它的最大优势就在于，当集合元素数量非常多时，它计算基数所需的空间总是固定的，而且还很小。
+     * HyperLogLog 的统计规则是基于概率完成的，所以它给出的统计结果是有一定误差的，标准误算率是 0.81%。这也就意味着，
+     * 你使用 HyperLogLog 统计的 UV 是 100 万，但实际的 UV 可能是 101 万。
+     */
+    public static void testHyperLogLog() {
+        String key = "page1:uv";
+        jedis.pfadd(key, "user1", "user2", "user3");
+
+        System.out.println("查询该页面的访问量：" + jedis.pfcount(key));
+    }
+
+    /**
+     * 面向 LBS（Location-Based Service，位置信息服务） 应用的 GEO 数据类型,GEO 类型的底层数据结构就是用 Sorted Set 来实现的。
+     * GEOADD 命令：用于把一组经纬度信息和相对应的一个 ID 记录到 GEO 类型集合中；
+     * GEORADIUS 命令：会根据输入的经纬度位置，查找以这个经纬度为中心的一定范围内的其他元素。当然，我们可以自己定义这个范围。
+     */
+    public static void testGeo() {
+        String key = "cars:locations";
+        jedis.geoadd(key, 116.034579, 39.030452, String.valueOf(33));
+
+        // 查找以这个经纬度为中心的 5 公里内的车辆信息
+        jedis.georadius(key, 116.054579, 39.030452, 5, GeoUnit.KM);
     }
 }
