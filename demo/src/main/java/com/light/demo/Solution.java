@@ -9,7 +9,9 @@ package com.light.demo;
 
 public class Solution {
     public static void main(String[] args) {
-        System.out.print("".split(",").length);
+        Integer one = 1;
+        Integer two = 2;
+        one.equals(two);
     }
 
 
