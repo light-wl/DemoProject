@@ -1,5 +1,6 @@
 package com.light.demo;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -9,18 +10,20 @@ import java.math.BigDecimal;
 @Service
 @Scope(value = "prototype")
 public class ServiceOne {
+
+    public int count = 0;
+
     @Autowired
     private ServiceTwo serviceTwo;
+
+    @Autowired
+    private ServiceThree serviceThree;
 
     public void getService() {
         System.out.println(serviceTwo);
     }
 
-    public static void main(String[] args) {
-
-    }
-
-    private static void bigdecimal(){
+    private static void bigdecimal() {
         double one = 1.1234;
         BigDecimal scale = new BigDecimal(one);
         System.out.println(scale);
