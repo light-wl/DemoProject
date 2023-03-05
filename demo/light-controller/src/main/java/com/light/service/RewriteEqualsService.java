@@ -12,14 +12,14 @@ import java.util.HashSet;
  * @Date 2023/2/24 14:56
  **/
 public class RewriteEqualsService {
-        public static void main(String[] args) throws IllegalAccessException {
+    public static void main(String[] args) throws IllegalAccessException {
         HashSet stuSet = new HashSet();
         stuSet.add(new Student(11, "张三", "王老师"));
         stuSet.add(new Student(11, "张三", "李老师"));
         System.out.println(stuSet.size());
         Student student = new Student();
-        for(Field field : student.getClass().getFields()){
-            if(field.isAnnotationPresent(Autowired.class)){
+        for (Field field : student.getClass().getFields()) {
+            if (field.isAnnotationPresent(Autowired.class)) {
                 field.set(student, null);
             }
         }

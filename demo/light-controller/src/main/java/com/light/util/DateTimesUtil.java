@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class DateTimeUtil {
+public class DateTimesUtil {
     public static final String yyyyMMdd = "yyyyMMdd";
 
     public static String getCurrDate(String dateFormat) {
