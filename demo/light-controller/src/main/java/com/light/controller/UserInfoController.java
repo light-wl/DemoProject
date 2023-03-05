@@ -2,9 +2,9 @@ package com.light.controller;
 
 import com.light.model.Response;
 import com.light.service.UserInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.Resource;
 
 /**
  * @Description
@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 //@Scope("prototype")
 public class UserInfoController {
-    private static int st = 0;
-    private int index = 0;
-
-    @Autowired
+    @Resource
     private UserInfoService userInfoService;
 
     @PostMapping("/test")
