@@ -11,6 +11,7 @@ import lombok.Data;
 public class User {
     int age;
     String name;
+    int tall;
 
     public User(){
         this.age = 99;
