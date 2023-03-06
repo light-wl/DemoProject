@@ -12,6 +12,7 @@ public class User {
     int age;
     String name;
     int tall;
+    boolean sex;
 
     public User(){
         this.age = 99;
