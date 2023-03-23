@@ -1,5 +1,6 @@
 package com.light.service;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @Date 2023/2/24 14:39
  **/
 @Service
-//@Scope(value = "prototype")
+@Scope(value = "prototype")
 public class UserInfoService {
     public int count = 0;
 

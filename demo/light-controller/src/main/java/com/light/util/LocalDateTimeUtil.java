@@ -1,6 +1,7 @@
 package com.light.util;
 
-import io.netty.util.internal.StringUtil;
+
+import org.springframework.util.StringUtils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -142,7 +143,7 @@ public class LocalDateTimeUtil {
 
     public static String localDate2String(LocalDate localDate, String format) {
         //localDate.toString() 默认是 yyyy-MM-dd
-        if (StringUtil.isNullOrEmpty(format)) {
+        if (StringUtils.hasText(format)) {
             return localDate.toString();
         }
         DateTimeFormatter sf = DateTimeFormatter.ofPattern(format);
@@ -151,7 +152,7 @@ public class LocalDateTimeUtil {
 
     public static String localTime2String(LocalTime localTime, String format) {
         //localTime.toString() 默认是 17:50:25.973
-        if (StringUtil.isNullOrEmpty(format)) {
+        if (StringUtils.hasText(format)) {
             return localTime.toString();
         }
         DateTimeFormatter sf = DateTimeFormatter.ofPattern(format);
