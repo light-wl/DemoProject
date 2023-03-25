@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>light-log</module>
         <module>light-excel</module>
         <module>light-controller</module>
         <module>light-start</module>
@@ -50,11 +49,12 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!--log4j2日志依赖-->
+        <!--日志依赖，底层实现是 logback 实现-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
+        <!--引入注解：@Slf4j-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
