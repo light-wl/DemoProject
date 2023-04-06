@@ -18,19 +18,13 @@
 
     <dependencies>
         <!--EXCEL 包开始-->
-        <!-- EasyExcel -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>3.1.1</version>
         </dependency>
-        <!--常用工具库-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.75</version>
-        </dependency>
-        <!--EXCEL 包结束-->
+
+
     </dependencies>
 
 </project>
