@@ -30,10 +30,4 @@ public class DateTimesUtil {
     public static LocalDate changeDay(LocalDate localDate, Integer num) {
         return localDate.plusDays(num);
     }
-
-    public static void main(String[] args) {
-        LocalDate localDate = str2LocalDate("20221010", yyyyMMdd);
-
-        System.out.println(changeDay(localDate, -10));
-    }
 }

@@ -1,4 +1,4 @@
-package com.light.javabase;
+package com.light.service;
 
 import com.light.interfaces.IAccountService;
 

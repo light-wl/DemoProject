@@ -12,12 +12,6 @@ import java.util.List;
  **/
 public class ListDemo {
 
-    public static void main(String[] args) {
-        List<Integer> initList = Arrays.asList(2, 2, 4, 4, 6, 6, 8, 8);
-        ArrayList<Integer> list = new ArrayList<>(initList);
-        deleteList03(list);
-    }
-
     /**
      * 数组删除操作：这种不会报错，但是会删不干净
      * 1、可以采用倒叙删除

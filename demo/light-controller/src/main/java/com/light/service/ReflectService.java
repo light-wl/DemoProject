@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * @Date 2023/2/24 15:02
  **/
 public class ReflectService {
-        public static void main(String[] args) {
+        public void TestOne() {
         try {
             Class clazz = Class.forName("com.light.demo.reflect.User");
 /*            System.out.println(clazz.getPackage().getName()); //包名

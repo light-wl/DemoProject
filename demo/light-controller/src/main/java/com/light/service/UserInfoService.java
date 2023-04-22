@@ -14,4 +14,8 @@ public class UserInfoService {
     public int count = 0;
 
     public static int countStatic = 0;
+
+    public Long register(String telephone, String password){
+        return 10L;
+    }
 }

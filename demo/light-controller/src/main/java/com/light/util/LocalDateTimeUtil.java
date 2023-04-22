@@ -158,8 +158,4 @@ public class LocalDateTimeUtil {
         DateTimeFormatter sf = DateTimeFormatter.ofPattern(format);
         return sf.format(localTime);
     }
-
-    public static void main(String[] args) {
-        System.out.println(localTime2String(LocalTime.now(), TO_HMS));
-    }
 }

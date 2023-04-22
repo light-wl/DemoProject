@@ -9,7 +9,7 @@ import com.light.model.UserInfo;
  * @Date 2023/2/24 14:31
  **/
 public class EasyExcelService {
-        public static void main(String[] args) {
+        public void ExcelDemo() {
         //文件路径
         String filePath = "/Users/light/Desktop/CashIn.xlsx";
         //读取

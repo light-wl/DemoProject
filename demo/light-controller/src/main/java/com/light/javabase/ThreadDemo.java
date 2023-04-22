@@ -12,7 +12,7 @@ public class ThreadDemo {
 
     static int count = 0;
 
-    public static void main(String[] args) {
+    public void TestOne() {
         long startTime = System.currentTimeMillis();
         synThread();
         long endTime = System.currentTimeMillis();

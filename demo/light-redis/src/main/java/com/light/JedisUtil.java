@@ -8,18 +8,6 @@ import java.util.*;
 public class JedisUtil {
     private static Jedis jedis;
 
-    public static void main(String[] args) {
-        connect();
-//        testRedis();
-//        testString();
-//        testMap();
-//        testList();
-//        testSet();
-//        testSortSet();
-//        testBitMap();
-        testHyperLogLog();
-    }
-
     public static void connect() {
         //从redis 连接池中获取
         jedis = JedisPoolUtil.getJedis();

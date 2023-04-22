@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +69,8 @@ public class J4Service1Test {
     @Test
     @Order(3)
     public void Test03() {
-        PowerMockito.mockStatic(DateTimesUtil.class);
-        PowerMockito.when(DateTimesUtil.getCurrDate(Mockito.anyString())).thenReturn("2022.11.1");
+//        PowerMockito.mockStatic(DateTimesUtil.class);
+//        PowerMockito.when(DateTimesUtil.getCurrDate(Mockito.anyString())).thenReturn("2022.11.1");
         Assert.assertEquals("2022.11.1", DateTimesUtil.getCurrDate("123"));
     }
 

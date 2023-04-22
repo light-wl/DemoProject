@@ -18,7 +18,7 @@ import java.util.Set;
  * @Date 2023/2/27 11:08
  **/
 public class NIODemo {
-    public static void main(String[] args){
+    public void testOne(){
         Student student = new Student();
         student.setAge(11);
         student.setName("Tom");
