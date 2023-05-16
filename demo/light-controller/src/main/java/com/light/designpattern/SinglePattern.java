@@ -1,6 +1,6 @@
 package com.light.designpattern;
 
-import com.light.model.User;
+import com.light.model.UserInfo;
 
 import javax.annotation.PostConstruct;
 
@@ -30,7 +30,7 @@ import javax.annotation.PostConstruct;
  * 3. 单例对代码的扩展性不友好：
  **/
 public class SinglePattern {
-    private static volatile User user;
+    private static volatile UserInfo user;
 
     /**
      * 饿汉式
@@ -44,7 +44,7 @@ public class SinglePattern {
      */
     @PostConstruct
     public void init() {
-        user = new User();
+        user = new UserInfo();
     }
 
     /**
@@ -55,9 +55,9 @@ public class SinglePattern {
      * 那这种实现方式还可以接受。但是，如果频繁地用到，那频繁加锁、释放锁及并发度低等问题，会导致性能瓶颈，
      * 这种实现方式就不可取了。
      */
-    public static synchronized User getUser1() {
+    public static synchronized UserInfo getUser1() {
         if (user == null) {
-            user = new User();
+            user = new UserInfo();
         }
         return user;
     }
@@ -69,12 +69,12 @@ public class SinglePattern {
      * 就被另一个线程使用了。这样，另一个线程就使用了一个没有完整初始化的 IdGenerator 类的对象。要解决这个问题，我们只需要给 instance 成员变量
      * 添加 volatile 关键字来禁止指令重排序即可。
      */
-    public static User getUser2() {
+    public static UserInfo getUser2() {
         if (user == null) {
             // 此处为类级别的锁
-            synchronized (User.class) {
+            synchronized (UserInfo.class) {
                 if (user == null) {
-                    user = new User();
+                    user = new UserInfo();
                 }
             }
         }
@@ -89,10 +89,10 @@ public class SinglePattern {
      * 创建过程的线程安全性，都由 JVM 来保证。所以，这种实现方法既保证了线程安全，又能做到延迟加载。
      */
     private static class SingletonHolder {
-        private static final User user = new User();
+        private static final UserInfo user = new UserInfo();
     }
 
-    public static User getUser3() {
+    public static UserInfo getUser3() {
         return SingletonHolder.user;
     }
 }

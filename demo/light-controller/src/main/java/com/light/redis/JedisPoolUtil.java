@@ -1,4 +1,4 @@
-package com.light;
+package com.light.redis;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

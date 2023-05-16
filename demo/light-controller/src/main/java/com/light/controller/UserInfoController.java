@@ -1,17 +1,21 @@
 package com.light.controller;
 
 import com.light.model.Response;
-import com.light.model.User;
+import com.light.model.UserInfo;
+import com.light.redis.JedisUtil;
 import com.light.service.RewriteEqualsService;
 import com.light.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -30,26 +34,36 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Component
 public class UserInfoController {
-    //    @Resource
+    @Resource
     private UserInfoService userInfoService;
 
     @Autowired
     private RewriteEqualsService rewriteEqualsService;
 
     @PostMapping("/test")
-    public Response test() {
-//         userInfoService = SpringUtils.getBean("userInfoService");
-//        userInfoService.count++;
-//        UserInfoService.countStatic++;
-//        System.out.println(this);
-//        System.out.println(userInfoService);
-//        System.out.println(userInfoService.count + "|" + UserInfoService.countStatic);
-        this.getThreadPool();
-        return new Response();
+    public Response test(String userId) {
+        Response response = new Response();
+        return response;
     }
 
+    @PostMapping("/register")
+    public Response register(String name, Integer age) {
+        Response response = new Response();
+        userInfoService.register(name, age);
+        return response;
+    }
+
+    @PostMapping("/getUserName")
+    public Response register(String userId) {
+        Response response = new Response();
+        String name = userInfoService.getUserNameById(userId);
+        response.setRetMsg(name);
+        return response;
+    }
+
+
     @PostMapping("/aop")
-    public Response aopTest(User user) throws InterruptedException {
+    public Response aopTest(UserInfo user) throws InterruptedException {
         log.info("输入参数：name:{},age:{}", user.getName(), user.getAge());
         Thread.sleep(1000);
         return new Response();
@@ -80,6 +94,5 @@ public class UserInfoController {
         //关闭线程池
         threadPoolExecutor.shutdown();
     }
-
 
 }

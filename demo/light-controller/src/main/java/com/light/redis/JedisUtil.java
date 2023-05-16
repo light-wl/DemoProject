@@ -1,4 +1,4 @@
-package com.light;
+package com.light.redis;
 
 import redis.clients.jedis.GeoUnit;
 import redis.clients.jedis.Jedis;
@@ -6,17 +6,25 @@ import redis.clients.jedis.Jedis;
 import java.util.*;
 
 public class JedisUtil {
-    private static Jedis jedis;
+    private static volatile Jedis jedis;
 
     public static void connect() {
-        //从redis 连接池中获取
-        jedis = JedisPoolUtil.getJedis();
+        //单例模式，从redis 连接池中获取
+        if (jedis == null) {
+            synchronized (JedisUtil.class) {
+                if (jedis == null) {
+                    jedis = JedisPoolUtil.getJedis();
+                }
+            }
+        }
+
     }
 
     /**
      * 查看所有的key：keys *
      */
-    public static void testRedis() {
+    public static Jedis getRedis() {
+        return jedis;
     }
 
     /**

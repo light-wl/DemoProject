@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DemoApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="com.light.DemoApplication" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="com.light.DemoApplication" />
     <module name="light-start" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.light.*" />
+        <option name="PATTERN" value="com.light.redis.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

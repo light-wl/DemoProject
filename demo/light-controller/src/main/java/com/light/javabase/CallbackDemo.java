@@ -1,6 +1,6 @@
 package com.light.javabase;
 
-import com.light.model.User;
+import com.light.model.UserInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,7 +119,7 @@ public class CallbackDemo {
     /**
      * 回调函数代码示例：定义方法
      */
-    private void handleSingle(User user, CallBackFunction callBackFunction) throws Exception {
+    private void handleSingle(UserInfo user, CallBackFunction callBackFunction) throws Exception {
         callBackFunction.callback(user.getAge(), user.getName());
     }
 
@@ -127,7 +127,7 @@ public class CallbackDemo {
      * 回调函数代码示例：构造匿名方法
      */
     public void init() throws Exception {
-        User user = new User();
+        UserInfo user = new UserInfo();
         user.setAge(10);
         user.setName("TOM");
         handleSingle(user, (age, name) -> {

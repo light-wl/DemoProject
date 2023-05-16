@@ -1,5 +1,8 @@
 package com.light.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -8,29 +11,31 @@ import lombok.Data;
  * @Date 2023/1/31 10:33
  **/
 @Data
-public class User {
+@Builder
+@AllArgsConstructor
+public class UserInfo {
+    int id;
     int age;
     String name;
-    int tall;
     boolean sex;
 
-    public User(){
+    public UserInfo(){
         this.age = 99;
         this.name = "无";
     }
 
-    public User(int age, String name) {
+    public UserInfo(int age, String name) {
         this.age = age;
         this.name = name;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof User)) {
+        if (!(obj instanceof UserInfo)) {
             return false;
         }
 
-        User user = (User) obj;
+        UserInfo user = (UserInfo) obj;
 
         //如果名字相同，则表示属于同一个对象。
 

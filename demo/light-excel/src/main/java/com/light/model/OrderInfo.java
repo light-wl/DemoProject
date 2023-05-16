@@ -9,7 +9,7 @@ import lombok.Data;
  * @Date 2023/2/24 14:26
  **/
 @Data
-public class UserInfo {
+public class OrderInfo {
     @ExcelProperty(value = "日期")
     private String date;
 

@@ -14,6 +14,10 @@ import static org.mockito.Mockito.*;
  */
 public class MockitoTest {
 
+    @Test
+    public void init(){
+    }
+
     /**
      * @Mock 注解可以理解为对 mock 方法的一个替代。
      * 使用该注解时，要使用MockitoAnnotations.initMocks 方法，让注解生效,

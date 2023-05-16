@@ -46,8 +46,8 @@ public class GuavaEventBusObserverPattern {
   }
 
   /**通知所有观察者*/
-  public Long register(String telephone, String password) {
-    long userId = userInfoService.register(telephone, password);
+  public Long register(String name, Integer age) {
+    long userId = userInfoService.register(name, age);
     //Publisher（发布者）通过调用post()方法，根据传入的实参，通过反射的方式找到相应的处理器并进行调
     eventBus.post(userId);
     return userId;
