@@ -8,11 +8,13 @@ import com.light.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
@@ -27,18 +29,29 @@ import java.util.concurrent.TimeUnit;
  * @Author light
  * @Date 2023/2/24 14:37
  **/
-@RestController
-@Scope("prototype")
+
 @Slf4j
-@Controller
-@Service
-@Component
+@RestController
 public class UserInfoController {
     @Resource
     private UserInfoService userInfoService;
 
     @Autowired
     private RewriteEqualsService rewriteEqualsService;
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @GetMapping("/getName")
+    public Response getName(){
+        Response response = new Response();
+        response.setRetMsg("对象地址" + getUserInfoService());
+        return response;
+    }
+
+    public UserInfoService getUserInfoService(){
+        return applicationContext.getBean(UserInfoService.class);
+    }
 
     @PostMapping("/test")
     public Response test(String userId) {
@@ -55,6 +68,7 @@ public class UserInfoController {
 
     @PostMapping("/getUserName")
     public Response register(String userId) {
+        log.debug("在系统运行时是不会打印出来的，只有debug才会，用户ID:{}",userId);
         Response response = new Response();
         String name = userInfoService.getUserNameById(userId);
         response.setRetMsg(name);
@@ -96,3 +110,4 @@ public class UserInfoController {
     }
 
 }
+

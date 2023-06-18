@@ -28,6 +28,13 @@ public class JedisUtil {
     }
 
     /**
+     * 分布式锁
+     * */
+    public void distributedLock(){
+
+    }
+
+    /**
      * 操作string类型的key
      * string 是最基本的类型,而且 string 类型是二进制安全的。意思是 redis 的 string 可以 包含任何数据。
      * 比如 jpg 图片或者序列化的对象。从内部实现来看其实 string 可以看作 byte数组,最大上限是 1G 字节

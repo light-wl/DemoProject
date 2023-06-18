@@ -25,21 +25,23 @@ public class ZkClientFactoryBean implements FactoryBean<CuratorFramework> {
     @Value("${zookeeper.baseSleepTimeMs:1000}")
     private int baseSleepTimeMs;
 
-    private CuratorFramework curatorClient;
-
-    @PostConstruct
-    public void init() {
+    public CuratorFramework getClient() {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(baseSleepTimeMs, maxRetries);
-        curatorClient = CuratorFrameworkFactory.builder()
+        CuratorFramework curatorClient = CuratorFrameworkFactory.builder()
                 .connectString(connectString)
                 .retryPolicy(retryPolicy)
                 .build();
+        return curatorClient;
+    }
+
+    public void connect() {
+        CuratorFramework curatorClient = this.getClient();
         curatorClient.start();
     }
 
     @Override
     public CuratorFramework getObject() throws Exception {
-        return curatorClient;
+        return null;
     }
 
     @Override

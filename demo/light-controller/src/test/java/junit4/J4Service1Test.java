@@ -1,6 +1,6 @@
 package junit4;
 
-import com.light.util.DateTimesUtil;
+import com.light.util.DateUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @RunWith(SpringRunner.class) 启动项目，执行测试类
  * */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({DateTimesUtil.class})
+@PrepareForTest({DateUtil.class})
 public class J4Service1Test {
 
 
@@ -71,7 +71,7 @@ public class J4Service1Test {
     public void Test03() {
 //        PowerMockito.mockStatic(DateTimesUtil.class);
 //        PowerMockito.when(DateTimesUtil.getCurrDate(Mockito.anyString())).thenReturn("2022.11.1");
-        Assert.assertEquals("2022.11.1", DateTimesUtil.getCurrDate("123"));
+        Assert.assertEquals("2022.11.1", DateUtil.getCurrDate("123"));
     }
 
     /**

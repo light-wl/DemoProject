@@ -17,6 +17,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.light</groupId>
+            <artifactId>light-mq</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- 性能分析工具arthas -->
+        <dependency>
+            <groupId>com.taobao.arthas</groupId>
+            <artifactId>arthas-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
@@ -31,7 +43,16 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
         </dependency>
-        <!--    跟MySQL的使用类似，Java是不认识Redis的，所以要加入驱动包 -->
+        <!--    跟MySQL的使用类似，Java是不认识Redis的，所以要加入驱动包,redis Java客户端Redisson
+         推荐使用：使用者对 Redis 的关注分离，可以类比 Spring 框架，这些框架搭建了应用程序的基础框架和功能，提升开发效率，让开发者有更多的时间来关注业务逻辑；
+提供很多分布式相关操作服务，例如，分布式锁，分布式集合，可通过Redis支持延迟队列等。
+-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+        </dependency>
+        <!--    跟MySQL的使用类似，Java是不认识Redis的，所以要加入驱动包,redis Java客户端Jedis
+         不推荐使用，不支持异步，且需要使用连接池-->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
@@ -63,6 +84,7 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+
 
     </dependencies>
 

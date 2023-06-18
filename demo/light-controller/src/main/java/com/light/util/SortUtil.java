@@ -10,23 +10,98 @@ import java.util.Arrays;
  * 2、当一个文件较大，如10G，则可以采用进阶版本，外部排序
  * 3、当再大一点，如100G，则可以加入多线程，参考MapReduce的设计
  * 4、如果再大，那么直接上大数据吧，用正版 MapReduce
+ * <p>
+ * 插入类排序：简单插入排序，升级为-希尔排序
+ * 选择类排序：简单选择排序，升级为-堆排序
+ * 交换类排序：冒泡排序，升级为-快速排序
+ * 归并排序：很多复杂的排序可以进行分块解决。
+ * 桶排序：只有特定数据类型可以，可以在O(n)时间完成排序，需要消耗部分桶空间。
  **/
 public class SortUtil {
     public static void main(String[] args) {
         /*快速排序测试*/
         int[] arr = {10, 7, 2, 4, 7, 62, 3, 4, 2, 1, 8, 9, 19};
         System.out.println("快速排序前" + Arrays.toString(arr));
-        quickSort(arr, 0, arr.length - 1);
+//        quickSort(arr, 0, arr.length - 1);
         System.out.println("快速排序后" + Arrays.toString(arr));
 
         /*堆排序测试*/
         System.out.println("堆排序前" + Arrays.toString(arr));
-        heapSort(arr);
+//        heapSort(arr);
         System.out.println("堆排序后" + Arrays.toString(arr));
+
+        // 测试冒泡排序
+        System.out.println("冒泡排序前" + Arrays.toString(arr));
+//        bulbSort(arr);
+        System.out.println("冒泡排序后" + Arrays.toString(arr));
+
+        // 选择排序
+        System.out.println("选择排序前" + Arrays.toString(arr));
+        selectSort(arr);
+        System.out.println("选择排序后" + Arrays.toString(arr));
+    }
+
+    /**
+     * 名称：冒泡排序
+     * 稳定
+     * 复杂度：O(N)^2
+     * 优化1：添加flag标志，如果一次遍历都没有移动，则表示有序
+     * 优化2：将最后移动的位置，作为结束的位置，可以节约排序次数
+     */
+    public static void bulbSort(int[] arr) {
+        int len = arr.length;
+        int dynamicLen = len - 1;
+        int tempLen = 0;
+        for (int i = 0; i < len - 1; i++) {
+            // 优化1：如果没有移动，则表示已经有序
+            boolean isMoved = false;
+            // 优化2：动态dynamicLen
+            for (int j = 0; j < dynamicLen; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j + 1];
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;
+                    isMoved = true;
+                    tempLen = j;
+                }
+            }
+            dynamicLen = tempLen;
+            if (!isMoved) {
+                break;
+            }
+        }
+    }
+
+    /**
+     * 名称：选择排序
+     * 稳定
+     * 复杂度：O(N)^2
+     */
+    public static void selectSort(int[] arr) {
+        int len = arr.length;
+        for (int i = 0; i < len - 1; i++) {
+            int minimumIndex = i;
+            for (int j = i; j < len - 1; j++) {
+                if (arr[j] < arr[minimumIndex]) {
+                    minimumIndex = j;
+                }
+            }
+            int temp = arr[i];
+            arr[i] = arr[minimumIndex];
+            arr[minimumIndex] = temp;
+        }
     }
 
     /**
      * 快速排序
+     * 5.1 hoare版本(左右指针法)
+     * 思路：
+     * 1、选出一个key，一般是最左边或是最右边的。
+     * 2、定义一个begin和一个end，begin从左向右走，end从右向左走。（需要注意的是：若选择最左边的数据作为key，则需要end先走；若选择最右边的数据作为key，则需要bengin先走）。
+     * 3、在走的过程中，若end遇到小于key的数，则停下，begin开始走，直到begin遇到一个大于key的数时，将begin和right的内容交换，end再次开始走，如此进行下去，直到begin和end
+     * 最终相遇，此时将相遇点的内容与key交换即可。（选取最左边的值作为key）
+     * 4.此时key的左边都是小于key的数，key的右边都是大于key的数
+     * 5.将key的左序列和右序列再次进行这种单趟排序，如此反复操作下去，直到左右序列只有一个数据，或是左右序列不存在时，便停止操作，此时此部分已有序
      */
     public static void quickSort(int[] arr, int left, int right) {
         if (left >= right) {

@@ -8,7 +8,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.TimeZone;
 
-public class LocalDateTimeUtil {
+public class LocalDateUtil {
+    public static final String YEAR = "YEAR";
+    public static final String MONTH = "MONTH";
+    public static final String DAT = "DAT";
+    public static final String HOUR = "HOUR";
+    public static final String MINITE = "MINITE";
+    public static final String SECOND = "SECOND";
     public final static String TO_SECOND_LONG = "yyyy-MM-dd HH:mm:ss";
     public final static String TO_SECOND_SHORT = "yyyyMMddHHmmss";
     public final static String TO_MINUTE_LONG = "yyyy-MM-dd HH:mm";
@@ -22,6 +28,7 @@ public class LocalDateTimeUtil {
      * 零时区时间
      */
     public static final TimeZone TIMEZONE_GMT = TimeZone.getTimeZone("GMT+0:00");
+
     /**
      * 中国沿海时间
      */
@@ -158,4 +165,39 @@ public class LocalDateTimeUtil {
         DateTimeFormatter sf = DateTimeFormatter.ofPattern(format);
         return sf.format(localTime);
     }
+
+    public static LocalDate changeDay(LocalDate localDate, String type, Integer num) {
+        switch (type) {
+            case YEAR:
+                return localDate.plusYears(num);
+            case MONTH:
+                return localDate.plusMonths(num);
+            case DAT:
+                return localDate.plusDays(num);
+        }
+        return localDate;
+    }
+
+    public static LocalDateTime changeTime(LocalDateTime localDateTime, String type, Integer num) {
+        switch (type) {
+            case HOUR:
+                return localDateTime.plusHours(num);
+            case MINITE:
+                return localDateTime.plusMinutes(num);
+            case SECOND:
+                return localDateTime.plusSeconds(num);
+        }
+        return localDateTime;
+    }
+
+    public static LocalDate str2LocalDate(String str, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return LocalDate.parse(str, formatter);
+    }
+
+        public static String localDate2Str(LocalDate date, String format) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
+        return date.format(fmt);
+    }
+
 }

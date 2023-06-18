@@ -2,11 +2,12 @@
 <configuration scan="true" scanPeriod="10 seconds">
     <contextName>logback</contextName>
 
+    <!-- 标签：property，表示全局变量，可以方便后面配置引用   -->
     <property name="logging.path" value="/Users/light/Desktop/Git/DemoProject/DemoProject/demo/logs"/>
 
     <!--0. 日志格式和颜色渲染 -->
     <!-- 彩色日志格式 -->
-  <property name="CONSOLE_LOG_PATTERN"
+    <property name="CONSOLE_LOG_PATTERN"
               value="%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
 
     <!--1. 输出到控制台-->
@@ -39,7 +40,7 @@
                 <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--日志文档保留天数-->
-            <maxHistory>15</maxHistory>
+            <maxHistory>30</maxHistory>
         </rollingPolicy>
         <!-- 此日志文档只记录debug级别的 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -135,11 +136,9 @@
         <appender-ref ref="ERROR_FILE"/>
     </logger>
 
-    <root level="info">
+    <!-- 日志级别越低，日志打印到控制台的信息就越多，因为会打印该等级以上的所有需要输出的内容 -->
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="DEBUG_FILE"/>
-        <appender-ref ref="INFO_FILE"/>
-        <appender-ref ref="WARN_FILE"/>
-        <appender-ref ref="ERROR_FILE"/>
     </root>
 </configuration>
+

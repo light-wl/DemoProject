@@ -4,21 +4,25 @@ import com.light.mapper.UserInfoMapper;
 import com.light.model.UserInfo;
 import com.light.redis.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 
+import javax.annotation.Resource;
+
 /**
  * @Description
  * @Author light
  * @Date 2023/2/24 14:39
+ * 注意：当一个单例的 Bean，使用 autowired 注解标记其属性时，你一定要注意这个属性值会被固定下来，就是会不生效；
  **/
 @Service
-@Scope(value = "prototype")
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class UserInfoService {
 
-    @Autowired
+    @Resource
     private UserInfoMapper userInfoMapper;
 
     public int count = 0;

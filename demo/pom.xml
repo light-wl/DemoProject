@@ -29,6 +29,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- 性能分析工具arthas -->
+            <dependency>
+                <groupId>com.taobao.arthas</groupId>
+                <artifactId>arthas-spring-boot-starter</artifactId>
+                <version>3.5.2</version>
+            </dependency>
+
             <!-- 连接MySQL的依赖 -->
             <dependency>
                 <groupId>mysql</groupId>
@@ -137,12 +144,20 @@
                 <version>2.12.0</version>
             </dependency>
 
-            <!-- redis 依赖 -->
+            <!-- redis 客户端-Jedis依赖 -->
             <dependency>
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${redis.version}</version>
             </dependency>
+
+            <!-- redis 客户端-Redisson依赖 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>3.16.3</version>
+            </dependency>
+
             <!--引入注解：@Slf4j-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -167,12 +182,18 @@
     </dependencyManagement>
 
     <dependencies>
+        <!--        RabbitMQ        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
         <!--Spring Controller（@RestController,@PostMapping,@Component等）中注解使用-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- 所有model 打日志的依赖-->
+        <!-- @Slf4j日志抽象层的依赖-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -203,7 +224,6 @@
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
         </dependency>
-
 
         <!--单元测试包结束-->
     </dependencies>

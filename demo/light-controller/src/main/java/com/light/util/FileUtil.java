@@ -88,8 +88,8 @@ public class FileUtil {
         System.out.println("文件的绝对路径是-->" + file.getAbsolutePath());
         System.out.println("文件的上级路径是-->" + file.getParent());
         System.out.print("最后修改时间-->");
-        String lastModifiedTime = LocalDateTimeUtil.localDate2String(LocalDate.ofEpochDay(file.lastModified()),
-                LocalDateTimeUtil.TO_DAY_LONG);
+        String lastModifiedTime = LocalDateUtil.localDate2String(LocalDate.ofEpochDay(file.lastModified()),
+                LocalDateUtil.TO_DAY_LONG);
         System.out.println(lastModifiedTime);
         System.out.println("文件长度是-->" + file.length());
     }

@@ -1,6 +1,5 @@
 package com.light.designpattern;
 
-import jdk.internal.util.xml.impl.Input;
 import lombok.Data;
 import org.springframework.expression.spel.ast.Selection;
 
@@ -27,9 +26,6 @@ class LandingPageDialog implements Mediator {
     private Button loginButton;
     private Button regButton;
     private Selection selection;
-    private Input usernameInput;
-    private Input passwordInput;
-    private Input repeatedPswdInput;
     private Text hintText;
 
     @Override
