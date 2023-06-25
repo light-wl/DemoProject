@@ -1,9 +1,8 @@
-package com.light.designpattern;
+package com.light.designpattern.behavior;
 
 import lombok.Data;
 import org.springframework.expression.spel.ast.Selection;
 
-import javax.swing.text.View;
 import javax.xml.soap.Text;
 import java.awt.*;
 

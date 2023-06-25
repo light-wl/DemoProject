@@ -1,4 +1,4 @@
-package com.light.designpattern.creates;
+package com.light.designpattern.behavior.creates;
 
 import com.light.model.UserInfo;
 
@@ -34,7 +34,7 @@ import javax.annotation.PostConstruct;
  * 2. 单例会隐藏类之间的依赖关系：单例类不需要显示创建、不需要依赖参数传递，在函数中直接调用就可以了。
  * 3. 单例对代码的扩展性不友好：
  **/
-public class SinglePattern {
+public class SingleDesignPattern {
     private static volatile UserInfo user;
 
     /**

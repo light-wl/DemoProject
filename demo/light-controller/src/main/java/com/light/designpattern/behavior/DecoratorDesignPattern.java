@@ -1,4 +1,4 @@
-package com.light.designpattern;
+package com.light.designpattern.behavior;
 
 import java.util.ArrayList;
 import java.util.HashMap;

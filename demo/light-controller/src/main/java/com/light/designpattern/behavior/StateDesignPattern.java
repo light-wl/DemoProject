@@ -1,6 +1,4 @@
-package com.light.designpattern;
-
-import com.light.model.State;
+package com.light.designpattern.behavior;
 
 /**
  * @Author light

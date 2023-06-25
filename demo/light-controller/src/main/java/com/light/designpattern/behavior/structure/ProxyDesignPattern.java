@@ -1,8 +1,4 @@
-package com.light.designpattern;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+package com.light.designpattern.behavior.structure;
 
 /**
  * @Description
@@ -11,7 +7,7 @@ import java.lang.reflect.Proxy;
  * @Desc 代理模式代码
  **/
 
-public class MetricsCollectorProxy {
+public class ProxyDesignPattern {
   /*private MetricsCollector metricsCollector;
 
   public MetricsCollectorProxy() {

@@ -1,4 +1,4 @@
-package com.light.designpattern;
+package com.light.designpattern.behavior;
 
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;

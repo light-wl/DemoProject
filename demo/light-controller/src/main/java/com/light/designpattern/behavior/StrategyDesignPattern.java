@@ -1,4 +1,4 @@
-package com.light.designpattern;
+package com.light.designpattern.behavior;
 
 import com.light.enums.OrderTypeEnum;
 import com.light.model.Order;
