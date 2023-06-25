@@ -8,6 +8,7 @@ import java.util.concurrent.*;
  * @Author light
  * @Date 2023/2/28 11:09
  * @Desc 创建线程的四种方式
+ * 0、匿名内部类
  * 1、继承Thread类创建线程
  * 2、实现Runnable接口创建线程
  * 3、使用Callable和Future创建线程
@@ -60,6 +61,14 @@ public class ThreadDemo {
     public static void main(String[] args) {
         ThreadDemo threadDemo = new ThreadDemo();
         threadDemo.testFour();
+    }
+
+    /**
+     * 使用较多的方式：匿名内部类
+     * */
+    public void testAnony(){
+        Thread t = new Thread(() -> System.out.println(Thread.currentThread().getId() + " 线程已启动"));
+            t.start();
     }
 
     /**

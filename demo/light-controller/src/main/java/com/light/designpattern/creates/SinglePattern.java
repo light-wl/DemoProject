@@ -1,4 +1,4 @@
-package com.light.designpattern;
+package com.light.designpattern.creates;
 
 import com.light.model.UserInfo;
 
@@ -24,6 +24,11 @@ import javax.annotation.PostConstruct;
  *
  * 问：在你所熟悉的编程语言的类库中，有哪些类是单例类？又为什么要设计成单例类呢？
  * 答：在某个功能使用前需要初始化，且只需要初始化一次即可。比如：配置信息类、连接池类、ID 生成器类。
+ *
+ * 应用：
+ * 1、Spring 产生 Bean 的方式，默认是单例的；
+ *
+ *
  *
  * 缺点：1. 单例对 OOP 特性的支持不友好：如果需要ID生成器需要分类，则需要修改所有用到的地方；
  * 2. 单例会隐藏类之间的依赖关系：单例类不需要显示创建、不需要依赖参数传递，在函数中直接调用就可以了。
