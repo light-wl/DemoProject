@@ -1,4 +1,4 @@
-package com.light.mq;
+package com.light.mq.rabbitmq;
 
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -15,13 +15,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    @Value("${spring.rabbitmq.address}")
+    @Value("${rabbitmq.address}")
     private String address;
-    @Value("${spring.rabbitmq.username}")
+    @Value("${rabbitmq.username}")
     private String username;
-    @Value("${spring.rabbitmq.password}")
+    @Value("${rabbitmq.password}")
     private String password;
-    @Value("${spring.rabbitmq.virtualhost}")
+    @Value("${rabbitmq.virtualhost}")
     private String virtualhost;
 
 

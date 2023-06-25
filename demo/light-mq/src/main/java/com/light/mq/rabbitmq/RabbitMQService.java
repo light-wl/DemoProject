@@ -1,4 +1,4 @@
-package com.light.mq;
+package com.light.mq.rabbitmq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
