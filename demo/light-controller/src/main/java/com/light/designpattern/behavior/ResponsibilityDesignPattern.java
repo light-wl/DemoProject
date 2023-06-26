@@ -13,7 +13,9 @@ import java.util.List;
  * 3、拦截器
  **/
 
-/**学习案例：将方法中统计的代码抽出来，再留一个函数，将这个函数当做必须要实现的方法*/
+/**
+ * 学习案例：将方法中统计的代码抽出来，再留一个函数，将这个函数当做必须要实现的方法
+ */
 abstract class Handler {
     protected Handler successor = null;
 
@@ -30,7 +32,6 @@ abstract class Handler {
 
     protected abstract boolean doHandle();
 }
-
 
 
 public class ResponsibilityDesignPattern {

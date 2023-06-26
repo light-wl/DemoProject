@@ -40,7 +40,7 @@ public class RedissonUtil {
      * 可以使用 @PostConstruct 注解，自己初始化，
      * 当然，用了Spring，可以在配置文件中配置即可。
      */
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         //1 创建redission的config对象并配置redis服务器(此处使用singleServer)
         Config config = new Config();
