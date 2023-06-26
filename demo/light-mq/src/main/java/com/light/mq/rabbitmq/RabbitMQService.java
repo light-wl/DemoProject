@@ -71,7 +71,7 @@ public class RabbitMQService {
     /**
      * 当确认模式设置为NONE时，只要中间件投递了消息就认为成功并将消息从队列中移除。
      * */
-    @RabbitListener(queues = "direct.queue", ackMode = "NONE")
+//    @RabbitListener(queues = "direct.queue", ackMode = "NONE")
     public void noneAckListener(String msg) {
         log.info("收到消息 -> {}", msg);
         // 添加个错误用于测试
