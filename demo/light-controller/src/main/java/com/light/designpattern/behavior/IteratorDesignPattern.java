@@ -12,7 +12,9 @@ import java.util.List;
  * 实例：遍历集合数据有三种方法：for 循环、foreach 循环、iterator 迭代器
  * （foreach 循环只是一个语法糖而已，底层是基于迭代器来实现的）
  *
+ * iterator 迭代器优点：分离了集合对象的遍历行为; 抽象出了迭代器负责集合对象的遍历, 可以让外部的代码透明的访问集合内部的数据;
  * 问：在 Java 中，如果在使用迭代器的同时删除容器中的元素，会导致迭代器报错，这是为什么呢？如何来解决这个问题呢？
+ * A:不要使用集合的remove，使用 iterator.remove();即可；因为集合的remove会导致modCount次数增加，而集合在迭代时不允许修改。
  *
  **/
 public class IteratorDesignPattern {
@@ -23,7 +25,12 @@ public class IteratorDesignPattern {
         names.add("zheng");
         Iterator<String> iterator = names.iterator();
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            // 会报错：names.remove(iterator.next());
+            String str = iterator.next();
+            if("xzg".equals(str)){
+                iterator.remove();
+            }
+            System.out.println(str);
         }
 
         for(String name : names){
@@ -31,7 +38,6 @@ public class IteratorDesignPattern {
         }
     }
 }
-
 
 class ArrayIterator<E> implements Iterator<E> {
     private int cursor;
