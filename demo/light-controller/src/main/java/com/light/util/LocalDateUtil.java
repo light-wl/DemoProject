@@ -34,6 +34,16 @@ public class LocalDateUtil {
      */
     public static final TimeZone TIMEZONE_CCT = TimeZone.getTimeZone("GMT+8:00");
 
+    // 获取当前时间
+    public static LocalDateTime getCurrentTime(TimeZone timeZone) {
+        return LocalDateTime.now(timeZone.toZoneId());
+    }
+
+    // 获取当前日期
+    public static LocalDate getCurrentDate(TimeZone timeZone) {
+        return LocalDate.now(timeZone.toZoneId());
+    }
+
     private static void localDateCommon() {
         LocalDate localDate = null;
 
@@ -143,10 +153,6 @@ public class LocalDateUtil {
         // 日期转字符串
     }
 
-    // 获取当前时间
-    public static LocalDateTime getCurrentTime(TimeZone timeZone) {
-        return LocalDateTime.now(timeZone.toZoneId());
-    }
 
     public static String localDate2String(LocalDate localDate, String format) {
         //localDate.toString() 默认是 yyyy-MM-dd
@@ -195,7 +201,7 @@ public class LocalDateUtil {
         return LocalDate.parse(str, formatter);
     }
 
-        public static String localDate2Str(LocalDate date, String format) {
+    public static String localDate2Str(LocalDate date, String format) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
         return date.format(fmt);
     }

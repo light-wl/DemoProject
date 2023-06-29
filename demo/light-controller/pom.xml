@@ -84,11 +84,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+        <!-- 分库分表使用shardingKey -->
         <dependency>
-            <groupId>com.light</groupId>
-            <artifactId>light-dubbo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+            <version>4.1.1</version>
         </dependency>
 
 

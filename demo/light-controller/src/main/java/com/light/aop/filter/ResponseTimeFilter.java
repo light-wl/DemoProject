@@ -25,7 +25,7 @@ public class ResponseTimeFilter extends OncePerRequestFilter {
         // 需要注意：doFilterInternal方法中必须调用filterChain.doFilter方法来继续执行后续的过滤器或请求处理程序。
         filterChain.doFilter(request, response);
         long endTime = System.currentTimeMillis();
-        System.out.println("请求 " + request.getRequestURI() + " 的响应时间为 " + (endTime - startTime) + " 毫秒");
+        System.out.println("第二个拦截器打印，请求 " + request.getRequestURI() + " 的响应时间为 " + (endTime - startTime) + " 毫秒");
     }
 
     /**

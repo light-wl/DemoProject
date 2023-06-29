@@ -3,7 +3,6 @@ package com.light.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.light.model.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * @Author light

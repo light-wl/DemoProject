@@ -23,7 +23,7 @@ public class LogFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String requestURI = httpRequest.getRequestURI();
-        System.out.println("请求：" + requestURI);
+        System.out.println("第一个拦截器打印，请求：" + requestURI);
         // 需要注意：doFilter方法中必须调用 chain.doFilter 方法来继续执行后续的过滤器或请求处理程序。
         chain.doFilter(request, response);
     }
