@@ -90,7 +90,11 @@
             <artifactId>sharding-jdbc-core</artifactId>
             <version>4.1.1</version>
         </dependency>
-
+        <!--常用工具库-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
 
     </dependencies>
 
