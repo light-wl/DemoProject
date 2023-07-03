@@ -25,18 +25,6 @@ public class RedissonUtil {
     private static RedissonClient redissonClient;
 
     /**
-     * 如果担心释放锁时出现异常，无法释放锁，可以添加过期时间
-     * redisson 自己实现了看门狗机制，当过期时间到了，但是任务没有执行完成，会自动续期
-     * 注意：不要设置释放时间，否则无法开启看门狗机制
-     */
-//    @Scheduled(cron = "0/3 * * * * ?")
-    public void exec() {
-        Thread thread = new Thread(this::distributedLock);
-        System.out.println(thread.getId() + "线程开始启动, 开始时间：" + System.currentTimeMillis());
-        thread.start();
-    }
-
-    /**
      * 可以使用 @PostConstruct 注解，自己初始化，
      * 当然，用了Spring，可以在配置文件中配置即可。
      */
@@ -50,19 +38,18 @@ public class RedissonUtil {
         redissonClient = Redisson.create(config);
     }
 
-
-    public void redissonMain() {
-        // 使用五种数据结构
-        useString(redissonClient);
-
-        useHash(redissonClient);
-
-        useList(redissonClient);
-
-        useSet(redissonClient);
-
-        useSortedSet(redissonClient);
-
+    /**
+     * 原理：reddission底层也是通过setnx,setex这两个命令结合lua脚本完成redis分布式锁的，通过他的api中的lock和unlock即可完成分布式锁。
+     * （redisson所有指令都通过lua脚本执行）
+     * 看门狗：redisson 自己实现了看门狗机制，当过期时间到了，但是任务没有执行完成，会自动续期，不需要其他操作
+     * Q：如果自己设置超时时间？
+     * A：如果自己设置了过期时间，则默认放弃使用看门狗策略，时间到后则会自动释放锁；
+     */
+//    @Scheduled(cron = "0/3 * * * * ?")
+    public void exec() {
+        Thread thread = new Thread(this::distributedLock);
+        System.out.println(thread.getId() + "线程开始启动, 开始时间：" + System.currentTimeMillis());
+        thread.start();
     }
 
     /**
@@ -74,11 +61,12 @@ public class RedissonUtil {
         RLock lock = redissonClient.getLock(LOCK_NAME);
         boolean result = false;
         try {
-            result = lock.tryLock(5, TimeUnit.SECONDS);
+            // 获取锁的最大等待时间；锁自动释放的时间；时间单位；
+            result = lock.tryLock(5, 10, TimeUnit.SECONDS);
             if (result) {
                 System.out.println(Thread.currentThread().getId() + "线程获取锁成功，开始休息100秒");
                 Thread.sleep(100 * 1000);
-                System.out.println(Thread.currentThread().getId() + "线程休息结束");
+                System.out.println(Thread.currentThread().getId() + "线程休息100秒结束");
             } else {
                 System.out.println(Thread.currentThread().getId() + "线程获取锁失败");
             }
@@ -93,6 +81,19 @@ public class RedissonUtil {
         }
     }
 
+    public void redissonMain() {
+        // 使用五种数据结构
+        useString(redissonClient);
+
+        useHash(redissonClient);
+
+        useList(redissonClient);
+
+        useSet(redissonClient);
+
+        useSortedSet(redissonClient);
+
+    }
 
     /**
      * String 数据类型
