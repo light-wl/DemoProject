@@ -1,4 +1,4 @@
-package com.light.designpattern.behavior.structure;
+package com.light.designpattern.structure;
 
 /**
  * @Description

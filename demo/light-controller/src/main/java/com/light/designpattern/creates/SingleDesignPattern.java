@@ -1,4 +1,4 @@
-package com.light.designpattern.behavior.creates;
+package com.light.designpattern.creates;
 
 import com.light.model.UserInfo;
 

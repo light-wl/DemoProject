@@ -67,8 +67,12 @@ public class ThreadDemo {
      * 使用较多的方式：匿名内部类
      * */
     public void testAnony(){
-        Thread t = new Thread(() -> System.out.println(Thread.currentThread().getId() + " 线程已启动"));
-            t.start();
+        new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("匿名内部类方式创建线程");
+                }
+            }).start();
     }
 
     /**
