@@ -12,9 +12,9 @@ import java.io.IOException;
  * @Author light
  * @Date 2023/6/26
  * @Desc 过滤器 实现二
- * 实例：用于记录请求的响应时间
+ * 功能：用于记录请求的响应时间
  * 1、我们继承了OncePerRequestFilter类，并实现了doFilterInternal方法，在方法中记录了请求的响应时间；
- * 2、要在Spring Boot中注册这个过滤器，可以在@Configuration类中使用FilterRegistrationBean对象；
+ * 2、要在Spring Boot中注册这个过滤器，也可以在@Configuration类中注册这个过滤器；
  **/
 public class ResponseTimeFilter extends OncePerRequestFilter {
 

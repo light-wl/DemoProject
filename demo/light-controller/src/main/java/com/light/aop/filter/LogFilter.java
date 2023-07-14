@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 public class LogFilter implements Filter {
 
     /**
-     * 1、首先，创建一个类并实现javax.servlet.Filter接口，并实现其中的doFilter方法。例如，我们创建一个LogFilter类来记录请求日志；
-     * 2、然后，在Spring Boot应用程序中注册这个过滤器。在Spring Boot中，可以通过创建一个FilterRegistrationBean对象来注册过滤器。
-     * 例如，我们在MyApplication类中注册LogFilter：
+     * 功能：我们创建一个LogFilter类来记录请求日志
+     * 实现1、首先，创建一个类并实现javax.servlet.Filter接口，并实现其中的doFilter方法。
+     * 实现2、在Spring Boot应用程序中注册这个过滤器，通过创建一个FilterRegistrationBean对象来注册这个过滤器，就是需要把过滤器放到一个bean中。
      * */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
