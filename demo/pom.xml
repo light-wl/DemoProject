@@ -21,6 +21,7 @@
         <module>light-controller</module>
         <module>light-start</module>
         <module>light-mq</module>
+        <module>light-dubbo</module>
     </modules>
 
     <properties>
@@ -126,6 +127,19 @@
             <scope>test</scope>
         </dependency>
         <!--        单元测试包结束     -->
+
+        <!--        Dubbo 的依赖       -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-dependencies-zookeeper</artifactId>
+            <type>pom</type>
+            <version>3.1.0</version>
+        </dependency>
 
     </dependencies>
 
