@@ -3,6 +3,7 @@ package com.light.javabase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @Author light
@@ -60,19 +61,61 @@ public class ThreadDemo {
 
     public static void main(String[] args) {
         ThreadDemo threadDemo = new ThreadDemo();
-        threadDemo.testFour();
+        threadDemo.blockMethod();
+    }
+
+    /**
+     * 1、所谓的释放锁资源实际是通知对象内置的 monitor 对象进行释放，而只有所有对象都有内置的 monitor 对象才能实现任何对象的锁资源都可以释放。
+     * 又因为所有类都继承自Object，所以wait()就成了Object方法，也就是通过wait()来通知对象内置的monitor对象释放，而且事实上因为这涉及对硬件底层的操作，
+     * 所以wait()方法是native方法，底层是用C写的。其他都是Thread所有，所以其他3个是没有资格释放资源的,而join()有资格释放资源其实是通过调用wait()来实现的。
+     * <p>
+     * 2、阻塞线程的方法：
+     * sleep：Thread类下的方法，所以不会释放锁
+     * wait：释放锁，并进入阻塞状态；
+     * notifyAll：将所有通过wait阻塞的线程，开始进入就绪状态，并开始抢锁
+     * yield:进入阻塞状态
+     * join:
+     */
+    public void blockMethod() {
+        try {
+            Thread.sleep(1000);
+
+            List<String> list = new ArrayList<>();
+            // list.wait(); list.notifyAll(); 具体使用参考ProducerConsumerThread
+
+            Thread joinTest = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("第一个线程执行开始");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (Exception e) {
+
+                    }
+                    System.out.println("第一个线程执行结束");
+                }
+            });
+            joinTest.start();
+//            joinTest.join();
+            System.out.println("主线程执行完毕，但是肯定在第一个线程执行完之后");
+
+        } catch (Exception ignored) {
+            System.out.println(ignored);
+        }
+
+
     }
 
     /**
      * 使用较多的方式：匿名内部类
-     * */
-    public void testAnony(){
+     */
+    public void testAnony() {
         new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("匿名内部类方式创建线程");
-                }
-            }).start();
+            @Override
+            public void run() {
+                System.out.println("匿名内部类方式创建线程");
+            }
+        }).start();
     }
 
     /**
@@ -133,38 +176,18 @@ public class ThreadDemo {
     /**
      * 第四种方式：使用 Executor 线程池
      * 注意：如果不主动关闭线程池，则不会结束
-     * */
-    public void testFour(){
+     */
+    public void testFour() {
         //创建等待队列
         BlockingQueue<Runnable> bqueue = new ArrayBlockingQueue<Runnable>(20);
         //创建线程池，池中保存的线程数为3，允许的最大线程数为5
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(3,5,50,TimeUnit.MILLISECONDS,bqueue);
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(3, 5, 50, TimeUnit.MILLISECONDS, bqueue);
         for (int i = 0; i < 10; i++) {
             pool.execute(new ThreadCla());
         }
         System.out.println(ThreadCla.getNum());
         pool.shutdown();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

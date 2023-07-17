@@ -19,10 +19,15 @@
     <dependencies>
         <!-- 启动项目时，加入其他模块-->
 
-        <!-- 加入依赖，这样启动的时候才会扫描他 -->
+        <!-- 加入依赖，这样启动的时候才会扫描他，否则该子模块在项目启动后将不起作用 -->
         <dependency>
             <groupId>com.light</groupId>
             <artifactId>light-controller</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.light</groupId>
+            <artifactId>light-dubbo</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
