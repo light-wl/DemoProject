@@ -24,7 +24,7 @@ public class DubboDemo {
     @DubboReference(cluster = ClusterRules.FAIL_SAFE)
     private ProviderService providerService;
 
-//    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0/5 * * * * ?")
     public void exec(){
         String resutl = providerService.SayHello("TOM");
         System.out.println(resutl);
