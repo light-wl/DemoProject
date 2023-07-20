@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
  * @Author light
  * @Date 2023/6/3
  * @Desc redis 客户端 redisson 使用
+ * 1、分布式锁
+ * 2、五种数据结构的使用
  **/
 @Component
 public class RedissonUtil {
@@ -28,7 +30,7 @@ public class RedissonUtil {
      * 可以使用 @PostConstruct 注解，自己初始化，
      * 当然，用了Spring，可以在配置文件中配置即可。
      */
-//    @PostConstruct
+    @PostConstruct
     public void init() {
         //1 创建redission的config对象并配置redis服务器(此处使用singleServer)
         Config config = new Config();
@@ -38,6 +40,9 @@ public class RedissonUtil {
         redissonClient = Redisson.create(config);
     }
 
+    public static RedissonClient getRedissonClient(){
+        return redissonClient;
+    }
     /**
      * 原理：reddission底层也是通过setnx,setex这两个命令结合lua脚本完成redis分布式锁的，通过他的api中的lock和unlock即可完成分布式锁。
      * （redisson所有指令都通过lua脚本执行）
@@ -164,10 +169,8 @@ public class RedissonUtil {
 
         sortedSet.add(1.0, "zs");
         sortedSet.add(2.0, "lisi");
-
-        Double score = sortedSet.getScore("zs");
-        System.out.println(score);
-        Integer rank = sortedSet.rank("zs");
-        System.out.println(rank);
+        sortedSet.addScore("zs", 1); //分值+1
+        Double score = sortedSet.getScore("zs"); // 获取分值
+        Integer rank = sortedSet.rank("zs"); // 获取排名
     }
 }
