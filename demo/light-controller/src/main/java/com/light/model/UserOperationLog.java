@@ -13,7 +13,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class UserOperationLog {
-    int id;
+    Integer id;
     String userId;
     String ip;
     String opData;

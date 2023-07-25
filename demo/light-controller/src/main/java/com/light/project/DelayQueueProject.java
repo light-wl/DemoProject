@@ -32,7 +32,7 @@ public class DelayQueueProject {
     // 定义一个延迟队列
     public volatile static DelayQueue<Orders> orderQueue = new DelayQueue();
 
-    @Scheduled(cron = "0/5 * * * * ?")
+//    @Scheduled(cron = "0/5 * * * * ?")
     public void exec() {
         Orders orders = Orders.builder()
                 .orderNumber("1")

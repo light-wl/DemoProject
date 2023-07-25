@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ReflectService {
 
-    @Scheduled(cron = "0/5 * * * * ?")
+//    @Scheduled(cron = "0/5 * * * * ?")
     public void exec() {
         ReflectOne();
     }

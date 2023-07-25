@@ -14,10 +14,10 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class UserInfo {
-    int id;
-    int age;
+    Integer id;
+    Integer age;
     String name;
-    boolean sex;
+    Boolean sex;
 
     public UserInfo(){
         this.age = 99;

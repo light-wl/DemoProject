@@ -9,7 +9,7 @@ import lombok.Data;
  **/
 @Data
 public class ShardingUser {
-    int id;
+    Integer id;
     String name;
     String age;
     String address;

@@ -26,7 +26,7 @@ public class RedisTemplateUtil {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    @Scheduled(cron = "0/5 * * * * ?")
+//    @Scheduled(cron = "0/5 * * * * ?")
     public void exec() {
         UseSet();
     }

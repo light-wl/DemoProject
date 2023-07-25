@@ -11,7 +11,7 @@ import org.springframework.web.util.UrlPathHelper;
 /**
  * @Author light
  * @Date 2023/6/26
- * @Desc
+ * @Desc 拦截器需要配置拦截路径
  **/
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

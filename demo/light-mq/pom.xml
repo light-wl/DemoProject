@@ -63,6 +63,16 @@
             <version>2.12.0</version>
         </dependency>
         <!-- rocketMQ 依赖结束 -->
+
+        <!--    kafka依赖开始   -->
+<!-- 在之前的版本中，需要引入apache下的kafka,现在spring已经将kafka整合入springframework中了，只引这一个包就可以 -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>2.5.4.RELEASE</version>
+        </dependency>
+
+        <!--    kafka依赖结束   -->
     </dependencies>
 
 </project>
