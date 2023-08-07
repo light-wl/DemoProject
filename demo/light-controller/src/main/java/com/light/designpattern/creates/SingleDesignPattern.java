@@ -3,28 +3,33 @@ package com.light.designpattern.creates;
 import com.light.model.UserInfo;
 
 import javax.annotation.PostConstruct;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Constructor;
 
 /**
  * @Author light
  * @Date 2023/3/21
  * @Desc 单例模式，饿汉式，懒汉式，双检锁，静态内部类
- *
+ * <p>
  * 问：单例模式是指线程内只允许创建一个对象，还是指进程内只允许创建一个对象？
  * 答：答案是后者，也就是说，单例模式创建的对象是进程唯一的。
  * 进程之间是不共享地址空间的，如果我们在一个进程中创建另外一个进程（比如，代码中有一个 fork() 语句，进程执行到这条语句的时候会创建一个新的进程），
  * 操作系统会给新进程分配新的地址空间，并且将老进程地址空间的所有内容，重新拷贝一份到新进程的地址空间中，这些内容包括代码、数据（比如 user 临时变量、User 对象）。
- *
+ * <p>
  * 问：如何实现线程唯一的单例？
  * 答：ConcurrentHashMap<Long, IdGenerator>根据不同线程，保存不同的实例
- *
+ * <p>
  * 问：如何实现集群环境下的单例？
  * 答：具体来说，我们需要把这个单例对象序列化并存储到外部共享存储区（比如文件）。进程在使用这个单例对象的时候，
  * 需要先从外部共享存储区中将它读取到内存，并反序列化成对象，然后再使用，使用完成之后还需要再存储回外部共享存储区。
- *
+ * <p>
  * 问：在你所熟悉的编程语言的类库中，有哪些类是单例类？又为什么要设计成单例类呢？
  * 答：在某个功能使用前需要初始化，且只需要初始化一次即可。比如：配置信息类、连接池类、ID 生成器类。
  * 1、Spring 产生 Bean 的方式，默认是单例的；
- *
+ * <p>
  * 缺点：
  * 1. 单例对 OOP 特性的支持不友好：如果需要ID生成器需要分类，则需要修改所有用到的地方；
  * 2. 单例会隐藏类之间的依赖关系：单例类不需要显示创建、不需要依赖参数传递，在函数中直接调用就可以了。
@@ -32,6 +37,13 @@ import javax.annotation.PostConstruct;
  **/
 public class SingleDesignPattern {
     private static volatile UserInfo user;
+
+    private SingleDesignPattern() {
+        // 防止方式一破坏单例模式
+        if(user != null){
+            throw new RuntimeException("单例已创建");
+        }
+    }
 
     /**
      * 饿汉式
@@ -95,5 +107,29 @@ public class SingleDesignPattern {
 
     public static UserInfo getUser3() {
         return SingletonHolder.user;
+    }
+
+    /**
+     * 问：如何破坏单例模式
+     * 1、因为单例模式的实现方式是将构造函数进行私有，在类内部进行构造一个对象，并对这个过程进行并发控制。但是，反射可以在运行并获取一个类的方法，包括私有的方法。所以使用反射是可以破坏单例模式的
+     * 2、我们先将对象序列化写入文件再将文件反序列化成java对象。
+     * */
+    public void BreakSingle() throws Exception{
+        //方式一
+        //通过反射获取构造参数
+        Constructor<SingleDesignPattern> constructor = SingleDesignPattern.class.getDeclaredConstructor();
+        //将构造函数设置成可访问的类型
+        constructor.setAccessible(true);
+        //调用构造函数创建一个对象
+        SingleDesignPattern instance = constructor.newInstance();
+
+
+        //方式二：将对象序列化
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("tempFile"));
+        oos.writeObject(SingleDesignPattern.getUser1());
+
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tempFile"));
+        UserInfo userInfo = (UserInfo) ois.readObject();
+        System.out.println(userInfo == SingleDesignPattern.getUser1()); //false
     }
 }

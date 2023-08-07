@@ -65,6 +65,17 @@ public class ThreadDemo {
     }
 
     /**
+     * ThreadLocal
+     * */
+    private static ThreadLocal<String> threadLocal = new ThreadLocal<>();
+    public void ThreadLocalTest(){
+        threadLocal.set("value");
+        threadLocal.get();
+        //可以在别的方法中调用get获取
+    }
+
+
+    /**
      * 1、所谓的释放锁资源实际是通知对象内置的 monitor 对象进行释放，而只有所有对象都有内置的 monitor 对象才能实现任何对象的锁资源都可以释放。
      * 又因为所有类都继承自Object，所以wait()就成了Object方法，也就是通过wait()来通知对象内置的monitor对象释放，而且事实上因为这涉及对硬件底层的操作，
      * 所以wait()方法是native方法，底层是用C写的。其他都是Thread所有，所以其他3个是没有资格释放资源的,而join()有资格释放资源其实是通过调用wait()来实现的。
@@ -178,8 +189,10 @@ public class ThreadDemo {
      * 注意：如果不主动关闭线程池，则不会结束
      */
     public void testFour() {
-        //创建等待队列
+        //创建阻塞队列
         BlockingQueue<Runnable> bqueue = new ArrayBlockingQueue<Runnable>(20);
+        BlockingDeque<Runnable> bdeque = new LinkedBlockingDeque<>(20);
+
         //创建线程池，池中保存的线程数为3，允许的最大线程数为5
         ThreadPoolExecutor pool = new ThreadPoolExecutor(3, 5, 50, TimeUnit.MILLISECONDS, bqueue);
         for (int i = 0; i < 10; i++) {

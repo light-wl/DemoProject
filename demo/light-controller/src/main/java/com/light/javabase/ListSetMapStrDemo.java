@@ -1,16 +1,20 @@
 package com.light.javabase;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
- * @Description
  * @Author light
  * @Date 2023/2/27 09:01
+ * @Desc List,Set,Hash
  **/
-public class ListDemo {
+public class ListSetMapStrDemo {
+
+    public static void main(String[] args) {
+        setDemo();
+    }
 
     /**
      * 数组删除操作：这种不会报错，但是会删不干净
@@ -44,5 +48,29 @@ public class ListDemo {
             }
         }
         System.out.println(list);
+    }
+
+    private static void listDemo(){
+
+    }
+
+    /**
+     * String 操作
+     * */
+    private static void stringDemo(){
+        StringBuffer buffer = new StringBuffer();
+    }
+
+
+    /**
+     * Set操作
+     * */
+    public static void setDemo(){
+        HashSet<String> hashSet = new HashSet<>();
+        System.out.println(hashSet.add("set"));
+        System.out.println(hashSet.add("set"));
+
+        TreeSet<String> treeSet = new TreeSet<>();
+
     }
 }

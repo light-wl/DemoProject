@@ -28,8 +28,8 @@ public class RabbitMQService {
     public void sendMsg() {
         /*
          * 三种交换机，
-         * 直连交换机：根据路由key投放消息到对应的队列
          * 扇形交换机：扇型交换机，这个交换机没有路由键概念，就算你绑了路由键也是无视的。 这个交换机在接收到消息后，会直接转发到绑定到它上面的所有队列。
+         * 直连交换机：根据路由key投放消息到对应的队列
          * 主题交换机
          * */
         rabbitAdmin.declareExchange(new DirectExchange("test.direct.exchange", false, false, null));

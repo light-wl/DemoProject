@@ -8,6 +8,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -20,6 +22,11 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class LogRecordAspect {
+
+//    Spring框架托管创建的Bean通常放在Spring的应用上下文中，可以通过应用上下文来获取和使用这些Bean。
+    @Autowired
+    private ApplicationContext applicationContext;
+
     Logger log = LoggerFactory.getLogger(LogRecordAspect.class);
 
     /**

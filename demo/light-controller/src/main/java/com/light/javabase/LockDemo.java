@@ -14,6 +14,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  **/
 public class LockDemo implements Runnable {
 
+//    默认生成的是非公平锁-NonfairSync
     ReentrantLock lock = new ReentrantLock();
     // 外层函数先获取了所有，set 函数内部又再获取锁，如果不是可重入锁，则会产生死锁；
     public synchronized void get(){

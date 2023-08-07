@@ -26,9 +26,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Description
  * @Author light
  * @Date 2023/2/24 14:37
+ * @Desc 类注解：@RestController @RequestMapping
+ * 方法注解：
  **/
 
 @Slf4j
