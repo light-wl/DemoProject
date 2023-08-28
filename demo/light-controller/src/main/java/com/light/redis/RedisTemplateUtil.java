@@ -27,9 +27,6 @@ public class RedisTemplateUtil {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    @Autowired
-    private RedisConnection redisConnection;
-
     //    @Scheduled(cron = "0/5 * * * * ?")
     public void exec() {
         UseSet();
@@ -83,7 +80,6 @@ public class RedisTemplateUtil {
         boolean value = true;
         redisTemplate.opsForValue().setBit(key, offest, value);
         redisTemplate.opsForValue().getBit(key, offest);
-        redisConnection.bitCount(key.getBytes());
     }
 
     /**

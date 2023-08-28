@@ -3,11 +3,13 @@ package com.light.redis;
 import redis.clients.jedis.GeoUnit;
 import redis.clients.jedis.Jedis;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 public class JedisUtil {
     private static volatile Jedis jedis;
 
+    @PostConstruct
     public static void connect() {
         //单例模式，从redis 连接池中获取
         if (jedis == null) {

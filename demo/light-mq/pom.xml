@@ -17,14 +17,6 @@
     </properties>
 
     <dependencies>
-        <!--RocketMQ依赖-->
-        <!-- https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-spring-boot-starter -->
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>2.2.1</version>
-        </dependency>
-
         <!-- rabbitMQ依赖开始 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,7 +30,13 @@
         </dependency>
         <!-- rabbitMQ依赖结束 -->
 
-        <!-- rocketMQ 依赖开始 -->
+        <!--    RocketMQ依赖开始    -->
+        <!-- https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-spring-boot-starter -->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.2.1</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
@@ -65,7 +63,7 @@
         <!-- rocketMQ 依赖结束 -->
 
         <!--    kafka依赖开始   -->
-<!-- 在之前的版本中，需要引入apache下的kafka,现在spring已经将kafka整合入springframework中了，只引这一个包就可以 -->
+        <!-- 在之前的版本中，需要引入apache下的kafka,现在spring已经将kafka整合入springframework中了，只引这一个包就可以 -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>

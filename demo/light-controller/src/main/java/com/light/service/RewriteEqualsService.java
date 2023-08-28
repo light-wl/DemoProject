@@ -19,6 +19,9 @@ import java.util.HashSet;
 @Service
 public class RewriteEqualsService {
 
+    @Autowired
+    private UserOperationLogService userOperationLogService;
+
     @LogRecord(content = "日志注解测试")
     public void logTest() {
         System.out.println("会在这行的输出上下方打印日志");

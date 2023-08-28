@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class UserOperationLogService {
+
+    @Autowired
+    private RewriteEqualsService rewriteEqualsService;
+
     @Autowired
     private UserOperationLogMapper operationLogMapper;
 

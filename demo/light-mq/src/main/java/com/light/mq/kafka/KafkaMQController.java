@@ -36,7 +36,7 @@ public class KafkaMQController {
     /**
      * 实时获取kafka数据(生产一条，监听生产topic自动消费一条)
      */
-    @KafkaListener(topics = "kafkaTopic")
+//    @KafkaListener(topics = "kafkaTopic")
     public void listen(ConsumerRecord<?, ?> record) {
         System.out.println("process:" + record.topic() + record.partition() + record);
     }
