@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2023/6/18
  * @Desc
  **/
-@Configuration
+//@Configuration
 public class RabbitConfig {
 
     @Value("${rabbitmq.address}")

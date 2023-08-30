@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @Desc RabbitMQ
  **/
 @Slf4j
-@Service
+//@Service
 public class RabbitMQService {
 
     @Resource
