@@ -3,7 +3,7 @@ package com.light.enums;
 /**
  * @Author light
  * @Date 2023/4/24
- * @Desc 枚举类的文件夹不能是enum，这是关键字，不能用做包名
+ * @Desc 错误示范，或者叫冗余写法示范，可以看另一个枚举类的简便写法
  **/
 public enum OrderTypeEnum {
     NORMAL("普通订单", "0001"),

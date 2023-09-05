@@ -89,13 +89,13 @@ public class RestControllerDemo {
      * 需要修改属性 @RequestParam(value = "id", required = false, default = 1)
      */
     @GetMapping("/getOne")
-    public void getOne(@RequestParam("id") Integer id) {
-        System.out.println(id);
+    public Response getOne(@RequestParam("id") Integer id) {
+        return Response.success(id);
     }
 
-    @GetMapping("/{id}")
-    public void getUserInfo(@PathVariable("id") Integer id) {
-        System.out.println(id);
+    @GetMapping("/getTwo/{id}")
+    public Response getTwo(@PathVariable("id") Integer id) {
+        return Response.success(id);
     }
 
 }

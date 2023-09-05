@@ -14,7 +14,7 @@ import java.io.Serializable;
 //@Data 不添加这个注解会导致response的时候get不到值，导致返回为空
 @Data
 public class Response<T> implements Serializable {
-    String retCode = "0000";
+    String retCode = "200w";
     String retMsg = "成功";
     private T data;
 
