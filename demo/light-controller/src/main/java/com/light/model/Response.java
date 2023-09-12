@@ -6,9 +6,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @Description
  * @Author light
  * @Date 2023/2/24 15:41
+ * @Desc 统一返回的类型，全局都需要，不能动
  **/
 
 //@Data 不添加这个注解会导致response的时候get不到值，导致返回为空

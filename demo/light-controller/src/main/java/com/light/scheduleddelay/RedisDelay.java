@@ -1,7 +1,6 @@
 package com.light.scheduleddelay;
 
-import com.light.redis.JedisPoolUtil;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.light.redis.JedisPoolConfig;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Tuple;
 
@@ -25,7 +24,7 @@ public class RedisDelay {
     }
 
     public void init() {
-        jedis = JedisPoolUtil.getJedis();
+        jedis = JedisPoolConfig.getJedis();
     }
 
     //生产者,生成5个订单放进去

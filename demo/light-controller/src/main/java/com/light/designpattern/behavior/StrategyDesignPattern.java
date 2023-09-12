@@ -1,7 +1,7 @@
 package com.light.designpattern.behavior;
 
 import com.light.enums.OrderTypeEnum;
-import com.light.model.Order;
+import com.light.model.ValidationModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +16,8 @@ import java.util.Map;
  **/
 public class StrategyDesignPattern {
   public static void main(String[] args) {
-    Order order = new Order();
-    order.setType(OrderTypeEnum.NORMAL);
+    ValidationModel order = new ValidationModel();
+//    order.setType(OrderTypeEnum.NORMAL);
     OrderServiceBefore orderServiceBefore = new OrderServiceBefore();
     orderServiceBefore.discount(order);
   }
@@ -25,9 +25,9 @@ public class StrategyDesignPattern {
 
 /**重构前*/
 class OrderServiceBefore {
-  public double discount(Order order) {
+  public double discount(ValidationModel order) {
     double discount = 0.0;
-    OrderTypeEnum type = order.getType();
+    OrderTypeEnum type = OrderTypeEnum.NORMAL;
     if (type.equals(OrderTypeEnum.NORMAL)) { // 普通订单
       //...省略折扣计算算法代码
     } else if (type.equals(OrderTypeEnum.GROUPON)) { // 团购订单
@@ -41,9 +41,9 @@ class OrderServiceBefore {
 
 /**重构后*/
 class OrderServiceAfter {
-  public double discount(Order order) {
-    OrderTypeEnum type = order.getType();
-    DiscountStrategy discountStrategy = DiscountStrategyFactory.getDiscountStrategy(type);
+  public double discount(ValidationModel order) {
+//    OrderTypeEnum type = order.getType();
+    DiscountStrategy discountStrategy = DiscountStrategyFactory.getDiscountStrategy(OrderTypeEnum.GROUPON);
     return discountStrategy.calDiscount(order);
   }
 }
@@ -65,24 +65,24 @@ class DiscountStrategyFactory {
 
 // 策略的定义
 interface DiscountStrategy {
-  double calDiscount(Order order);
+  double calDiscount(ValidationModel order);
 }
 
 class NormalDiscountStrategy implements DiscountStrategy{
   @Override
-  public double calDiscount(Order order) {
+  public double calDiscount(ValidationModel order) {
     return 0;
   }
 }
 class GrouponDiscountStrategy implements DiscountStrategy{
   @Override
-  public double calDiscount(Order order) {
+  public double calDiscount(ValidationModel order) {
     return 0;
   }
 }
 class PromotionDiscountStrategy implements DiscountStrategy{
   @Override
-  public double calDiscount(Order order) {
+  public double calDiscount(ValidationModel order) {
     return 0;
   }
 }

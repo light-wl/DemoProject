@@ -2,9 +2,8 @@ package com.light.redis;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
-public class JedisPoolUtil {
+public class JedisPoolConfig {
 
     private static String ADDR = "127.0.0.1";
 
@@ -28,7 +27,7 @@ public class JedisPoolUtil {
 
     static {
         try {
-            JedisPoolConfig config = new JedisPoolConfig();
+            redis.clients.jedis.JedisPoolConfig config = new redis.clients.jedis.JedisPoolConfig();
             config.setMaxIdle(MAX_IDLE);
             config.setTestOnBorrow(TEST_ON_BORROW);
             config.setMaxWaitMillis(MAX_WAIT);

@@ -15,7 +15,7 @@ public class JedisUtil {
         if (jedis == null) {
             synchronized (JedisUtil.class) {
                 if (jedis == null) {
-                    jedis = JedisPoolUtil.getJedis();
+                    jedis = JedisPoolConfig.getJedis();
                 }
             }
         }

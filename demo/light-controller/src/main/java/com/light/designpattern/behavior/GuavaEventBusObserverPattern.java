@@ -3,7 +3,6 @@ package com.light.designpattern.behavior;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.light.service.UserInfoService;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -24,7 +23,7 @@ import java.util.concurrent.Executors;
  **/
 public class GuavaEventBusObserverPattern {
   // 依赖注入
-  private UserInfoService userInfoService;
+  private DesignPatternUserInfoService userInfoService;
 
   private EventBus eventBus;
 

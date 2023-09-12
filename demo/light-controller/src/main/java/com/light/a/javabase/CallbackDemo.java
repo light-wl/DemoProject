@@ -1,6 +1,5 @@
-package com.light.javabase;
+package com.light.a.javabase;
 
-import com.light.model.UserInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,7 +1,6 @@
 package com.light.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.light.model.ShardingUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  * @Desc
  **/
 @Mapper
-public interface DaoMapper extends BaseMapper<ShardingUser> {
+public interface DaoMapper extends BaseMapper<UserInfo> {
     /**
      * 1、传递零散参数
      * 方式一：传入一个参数时，可以不用添加 Param 注解

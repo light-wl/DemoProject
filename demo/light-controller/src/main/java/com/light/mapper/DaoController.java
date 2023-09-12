@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * @Author light
  * @Date 2023/9/6
- * @Desc
+ * @Desc 学习DAO层如何传参
  **/
 @RestController
 @RequestMapping("/DAO/")

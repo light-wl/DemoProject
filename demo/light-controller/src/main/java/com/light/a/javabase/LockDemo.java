@@ -1,4 +1,4 @@
-package com.light.javabase;
+package com.light.a.javabase;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

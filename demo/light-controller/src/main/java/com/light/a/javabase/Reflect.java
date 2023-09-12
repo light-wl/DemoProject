@@ -1,4 +1,4 @@
-package com.light.javabase;
+package com.light.a.javabase;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -46,7 +46,7 @@ public class Reflect {
      */
     public static void ReflectTwo() {
         try {
-            Class entityClass = Class.forName("com.light.javabase.Reflect");
+            Class entityClass = Class.forName("com.light.a.javabase.Reflect");
             String entityName = entityClass.getName();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class Reflect {
         try {
             /** 一个完整的示例 */
             // 获取Class对象
-            Class<?> clazz = Class.forName("com.light.javabase.ReflectSon");
+            Class<?> clazz = Class.forName("com.light.a.javabase.ReflectSon");
             //获取继承的父类
             Class<?> superClass = clazz.getSuperclass();
             // 获取Method对象：getDeclaredMethod 可以调用类中的所有方法（不包括父类中继承的方法）

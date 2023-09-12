@@ -1,7 +1,5 @@
 package com.light.designpattern.behavior;
 
-import com.light.model.UserInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +17,11 @@ interface Subject {
 
     void removeObserver(Observer observer);
 
-    void notifyObservers(UserInfo user);
+    void notifyObservers(DesignPatternUserInfo user);
 }
 
 interface Observer {
-    void update(UserInfo user);
+    void update(DesignPatternUserInfo user);
 }
 
 /**
@@ -44,7 +42,7 @@ class ConcreteSubject implements Subject {
     }
 
     @Override
-    public void notifyObservers(UserInfo user) {
+    public void notifyObservers(DesignPatternUserInfo user) {
         for (Observer observer : observers) {
             observer.update(user);
         }
@@ -54,7 +52,7 @@ class ConcreteSubject implements Subject {
 
 class ConcreteObserverOne implements Observer {
     @Override
-    public void update(UserInfo user) {
+    public void update(DesignPatternUserInfo user) {
         //TODO: 获取消息通知，执行自己的逻辑...
         System.out.println("ConcreteObserverOne is notified.");
     }
@@ -62,7 +60,7 @@ class ConcreteObserverOne implements Observer {
 
 class ConcreteObserverTwo implements Observer {
     @Override
-    public void update(UserInfo user) {
+    public void update(DesignPatternUserInfo user) {
         //TODO: 获取消息通知，执行自己的逻辑...
         System.out.println("ConcreteObserverTwo is notified.");
     }
@@ -73,6 +71,6 @@ public class ObserverDesignPattern {
         ConcreteSubject subject = new ConcreteSubject();
         subject.registerObserver(new ConcreteObserverOne());
         subject.registerObserver(new ConcreteObserverTwo());
-        subject.notifyObservers(new UserInfo());
+        subject.notifyObservers(new DesignPatternUserInfo());
     }
 }

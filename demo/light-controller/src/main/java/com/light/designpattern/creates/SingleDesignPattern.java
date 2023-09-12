@@ -1,6 +1,6 @@
 package com.light.designpattern.creates;
 
-import com.light.model.UserInfo;
+import com.light.designpattern.behavior.DesignPatternUserInfo;
 
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
@@ -34,9 +34,11 @@ import java.lang.reflect.Constructor;
  * 1. 单例对 OOP 特性的支持不友好：如果需要ID生成器需要分类，则需要修改所有用到的地方；
  * 2. 单例会隐藏类之间的依赖关系：单例类不需要显示创建、不需要依赖参数传递，在函数中直接调用就可以了。
  * 3. 单例对代码的扩展性不友好：
+ *
+ * 注意：当一个单例的 Bean，使用 autowired 注解标记其属性时，你一定要注意这个属性值会被固定下来，就是会不生效；
  **/
 public class SingleDesignPattern {
-    private static volatile UserInfo user;
+    private static volatile DesignPatternUserInfo user;
 
     private SingleDesignPattern() {
         // 防止方式一破坏单例模式
@@ -57,7 +59,7 @@ public class SingleDesignPattern {
      */
     @PostConstruct
     public void init() {
-        user = new UserInfo();
+        user = new DesignPatternUserInfo();
     }
 
     /**
@@ -68,9 +70,9 @@ public class SingleDesignPattern {
      * 那这种实现方式还可以接受。但是，如果频繁地用到，那频繁加锁、释放锁及并发度低等问题，会导致性能瓶颈，
      * 这种实现方式就不可取了。
      */
-    public static synchronized UserInfo getUser1() {
+    public static synchronized DesignPatternUserInfo getUser1() {
         if (user == null) {
-            user = new UserInfo();
+            user = new DesignPatternUserInfo();
         }
         return user;
     }
@@ -82,12 +84,12 @@ public class SingleDesignPattern {
      * 就被另一个线程使用了。这样，另一个线程就使用了一个没有完整初始化的 IdGenerator 类的对象。要解决这个问题，我们只需要给 instance 成员变量
      * 添加 volatile 关键字来禁止指令重排序即可。
      */
-    public static UserInfo getUser2() {
+    public static DesignPatternUserInfo getUser2() {
         if (user == null) {
             // 此处为类级别的锁
-            synchronized (UserInfo.class) {
+            synchronized (DesignPatternUserInfo.class) {
                 if (user == null) {
-                    user = new UserInfo();
+                    user = new DesignPatternUserInfo();
                 }
             }
         }
@@ -102,10 +104,10 @@ public class SingleDesignPattern {
      * 创建过程的线程安全性，都由 JVM 来保证。所以，这种实现方法既保证了线程安全，又能做到延迟加载。
      */
     private static class SingletonHolder {
-        private static final UserInfo user = new UserInfo();
+        private static final DesignPatternUserInfo user = new DesignPatternUserInfo();
     }
 
-    public static UserInfo getUser3() {
+    public static DesignPatternUserInfo getUser3() {
         return SingletonHolder.user;
     }
 
@@ -129,7 +131,7 @@ public class SingleDesignPattern {
         oos.writeObject(SingleDesignPattern.getUser1());
 
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tempFile"));
-        UserInfo userInfo = (UserInfo) ois.readObject();
+        DesignPatternUserInfo userInfo = (DesignPatternUserInfo) ois.readObject();
         System.out.println(userInfo == SingleDesignPattern.getUser1()); //false
     }
 }

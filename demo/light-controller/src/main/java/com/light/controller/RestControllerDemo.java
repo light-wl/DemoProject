@@ -93,6 +93,14 @@ public class RestControllerDemo {
         return Response.success(id);
     }
 
+    /**
+     * 当是get请求时，如果前端传递的参数过多，可以使用map接收
+     */
+    @GetMapping("/getTwo")
+    public Response getOne(@RequestParam Map<String, Object> paramMap) {
+        return Response.success(paramMap);
+    }
+
     @GetMapping("/getTwo/{id}")
     public Response getTwo(@PathVariable("id") Integer id) {
         return Response.success(id);

@@ -1,7 +1,5 @@
 package com.light.scheduled;
 
-import com.light.model.UserInfo;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ import java.util.List;
  **/
 @Component
 public class ScheduleJob {
-    private List<UserInfo> userInfoList;
+    private List<ScheduledUserInfo> userInfoList;
 
 //    @Scheduled(cron = "0/5 * * * * ?")
     public void exec() {
@@ -25,7 +23,7 @@ public class ScheduleJob {
                 @Override
                 public void run() {
                     while(true){
-                        UserInfo userInfo = new UserInfo();
+                        ScheduledUserInfo userInfo = new ScheduledUserInfo();
                         userInfoList.add(userInfo);
                         try {
                             Thread.sleep(100);
