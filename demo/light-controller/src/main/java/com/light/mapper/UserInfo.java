@@ -13,5 +13,4 @@ public class UserInfo {
     private String name;
     private int sex;
     private String phoneNum;
-    private String ABC;
 }

@@ -10,10 +10,10 @@ import java.util.Map;
 /**
  * @Author light
  * @Date 2023/6/29
- * @Desc
+ * @Desc 几种常见的传参情况
  **/
 @Mapper
-public interface DaoMapper extends BaseMapper<UserInfo> {
+public interface DaoParamMapper extends BaseMapper<UserInfo> {
     /**
      * 1、传递零散参数
      * 方式一：传入一个参数时，可以不用添加 Param 注解

@@ -2,7 +2,6 @@ package com.light.mapper;
 
 import com.light.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,13 +20,19 @@ import java.util.Map;
 public class DaoController {
 
     @Autowired
-    private DaoMapper daoMapper;
+    private DaoParamMapper paramMapper;
 
+    @Autowired
+    private DaoXMLMapper xmlMapper;
+
+    /**
+     * paramMapper测试Controller
+     */
     @RequestMapping("getUserInfoOne")
     public Response getUserInfoOne() {
         UserInfo userInfo = new UserInfo();
         userInfo.setSex(1);
-        UserInfo result = daoMapper.getUserInfoOne(userInfo);
+        UserInfo result = paramMapper.getUserInfoOne(userInfo);
         return Response.success(result);
     }
 
@@ -35,7 +40,7 @@ public class DaoController {
     public Response getUserInfoTwo() {
         Map<String, String> map = new HashMap<>();
         map.put("sex", "1");
-        UserInfo result = daoMapper.getUserInfoTwo(map);
+        UserInfo result = paramMapper.getUserInfoTwo(map);
         return Response.success(result);
     }
 
@@ -45,7 +50,7 @@ public class DaoController {
         userInfo.setSex(1);
         Map<String, UserInfo> map = new HashMap<>();
         map.put("user", userInfo);
-        UserInfo result = daoMapper.getUserInfoThree(map);
+        UserInfo result = paramMapper.getUserInfoThree(map);
         return Response.success(result);
     }
 
@@ -53,14 +58,14 @@ public class DaoController {
     public Response getUserInfoFour() {
         List<Integer> ids = new ArrayList<>();
         ids.add(6);
-        UserInfo result = daoMapper.getUserInfoFour(ids);
+        UserInfo result = paramMapper.getUserInfoFour(ids);
         return Response.success(result);
     }
 
     @RequestMapping("getUserInfoFive")
     public Response getUserInfoFive() {
         Integer[] ids = new Integer[]{6};
-        UserInfo result = daoMapper.getUserInfoFive(ids);
+        UserInfo result = paramMapper.getUserInfoFive(ids);
         return Response.success(result);
     }
 
@@ -68,7 +73,11 @@ public class DaoController {
     public Response getUserInfoSix() {
         UserInfo userInfo = new UserInfo();
         userInfo.setSex(1);
-        UserInfo result = daoMapper.getUserInfoSix(userInfo, 12);
+        UserInfo result = paramMapper.getUserInfoSix(userInfo, 12);
         return Response.success(result);
     }
+
+    /**
+     * xmlMapper测试Controller
+     * */
 }

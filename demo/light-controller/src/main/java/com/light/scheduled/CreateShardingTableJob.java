@@ -1,6 +1,6 @@
 package com.light.scheduled;
 
-import com.light.mapper.DaoMapper;
+import com.light.mapper.DaoParamMapper;
 import com.light.util.LocalDateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Component
 public class CreateShardingTableJob {
     @Autowired
-    private DaoMapper userMapper;
+    private DaoParamMapper userMapper;
 
     // 按天分表，每天凌晨跑一次，提前创建七张表
 //    @Scheduled(cron = "0 * * * * ?")
