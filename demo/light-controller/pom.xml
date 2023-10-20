@@ -15,6 +15,9 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <!--
+    子模块可以集成父模块所有的依赖
+    -->
     <dependencies>
         <!--    项目内部依赖    -->
         <dependency>

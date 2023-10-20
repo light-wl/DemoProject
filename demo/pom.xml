@@ -16,6 +16,22 @@
     <name>demo</name>
     <description>demo</description>
 
+    <!-- Maven 聚合的特点：
+    现在有一个商城服务下面有两个模块，如果我们想要一次构建两个项目（模块），而不是到两个模块的目录下分别执行mvn命令。我们需要格外的名为hmall的模块，然后通过该模块构建整个项目的所有模块。
+    同时这里的packaging，值为POM。而子包的packaging为jar。对于聚合模块来说，其打包方式packaging的值为POM，否则就无法构建。
+    modules这是实现聚合的最核心的配置。用户可以通过在一个打包方式为pom的Maven项目中声明任意数量的module元素来实现模块的聚合。
+
+    聚合与继承的关系：
+    多模块maven项目中聚合与继承其实是两个概念，其目的完全不同。前者主要是为了方便快速构建项目，后者主要是为了消除重复配置。
+    对于聚合模块来说，它知道有哪些被聚合的模块，但那些被聚合的模块不知道这个聚合模块的存在。
+    对于继承关系的父POM来说，他不知道有哪些子模块继承于它，但那些子模块都必须知道自己的父POM是什么。
+    共同点：
+    聚合POM与继承关系的父POM的packaging都必须是pom，同时聚合模块与继承关系的父模块除了POM之外都没有实际内容。
+    在现有的实际项目中，往往一个POM即是聚合POM，又是父POM。
+
+    子模块间的调用：
+    注意<groupId>是父工程的id，然后还要加个<version>和<scope>compile<scope>,重点
+    -->
     <modules>
         <module>light-excel</module>
         <module>light-controller</module>
