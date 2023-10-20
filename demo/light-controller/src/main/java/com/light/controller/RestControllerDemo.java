@@ -84,6 +84,7 @@ public class RestControllerDemo {
     }
 
     /**
+     * GET：方式一
      * GET 默认使用 @RequestParam，只能接收拼接到 URL 地址上的参数，因为前端默认 GET 是拼接在 URL 上的
      * 注意1：这里默认参数 id 是必填，如果不是必填，
      * 需要修改属性 @RequestParam(value = "id", required = false, default = 1)
@@ -94,6 +95,7 @@ public class RestControllerDemo {
     }
 
     /**
+     * GET：方式二
      * 当是get请求时，如果前端传递的参数过多，可以使用map接收
      */
     @GetMapping("/getTwo")
@@ -101,6 +103,10 @@ public class RestControllerDemo {
         return Response.success(paramMap);
     }
 
+    /**
+     * GET：方式三
+     * 获取链接上的ID
+     */
     @GetMapping("/getTwo/{id}")
     public Response getTwo(@PathVariable("id") Integer id) {
         return Response.success(id);
