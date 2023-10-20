@@ -1,4 +1,4 @@
-package com.light.model;
+package com.light.controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.light.designpattern.behavior;
 
 import com.light.enums.OrderTypeEnum;
-import com.light.model.ValidationModel;
+import com.light.controller.ValidationModel;
 
 import java.util.HashMap;
 import java.util.Map;

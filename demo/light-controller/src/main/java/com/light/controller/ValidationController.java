@@ -1,4 +1,4 @@
-package com.light.model;
+package com.light.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
