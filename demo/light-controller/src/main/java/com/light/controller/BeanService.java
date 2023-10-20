@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class BeanService {
     public static void main(String[] args) {
-        
+
     }
 }
