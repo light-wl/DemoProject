@@ -24,10 +24,10 @@ public interface DaoParamMapper extends BaseMapper<UserInfoModel> {
     void createShardingTable(@Param("date") String date);
 
     /**
-     * 2、传入实体类
+     * 2、传入实体类，一般可以传入DTO，
      * 可以直接调用里面的参数
      */
-    UserInfoModel getUserInfoOne(UserInfoModel user);
+    List<UserInfoModel> listUserInfo(UserInfoModel user);
 
     /**
      * 3、传入Map

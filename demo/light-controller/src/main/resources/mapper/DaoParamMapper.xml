@@ -3,7 +3,7 @@
 <mapper namespace="com.light.mapper.DaoParamMapper">
 
     <sql id="resultColumn">
-        age,name,sex,phone_num,ab_c
+        SELECT age,name,sex,phone_num,ab_c FROM user_info
     </sql>
 
     <!--
@@ -15,14 +15,15 @@
         CREATE TABLE IF NOT EXISTS sharding_user_${date} (LIKE sharding_user)
     </update>
 
-    <select id="getUserInfoOne" resultType="com.light.mapper.UserInfoModel">
-        SELECT
-        *
-        FROM
-        user_info
-        WHERE
-        sex = #{sex}
-        limit 1;
+    <select id="listUserInfo" resultType="com.light.mapper.UserInfoModel"
+            parameterType="com.light.mapper.UserInfoModel">
+        <include refid="resultColumn"/>
+        <where>
+            <if test="name != null  and name != ''">and name = #{name}</if>
+            <if test="age != null">and age = #{age}</if>
+            <if test="sex != null">and sex = #{sex}</if>
+            <if test="phoneNum != null  and phoneNum != ''">and phone_num = #{phoneNum}</if>
+        </where>
     </select>
 
     <select id="getUserInfoTwo" resultType="com.light.mapper.UserInfoModel">
@@ -46,9 +47,7 @@
     </select>
 
     <select id="getUserInfoFour" resultType="com.light.mapper.UserInfoModel">
-        SELECT
         <include refid="resultColumn"/>
-        FROM user_info
         WHERE id in
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
@@ -56,9 +55,7 @@
     </select>
 
     <select id="getUserInfoFive" resultType="com.light.mapper.UserInfoModel">
-        SELECT
         <include refid="resultColumn"/>
-        FROM user_info
         WHERE id in
         <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
             #{item}

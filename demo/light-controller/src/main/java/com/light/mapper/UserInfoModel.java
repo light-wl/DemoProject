@@ -9,8 +9,8 @@ import lombok.Data;
  **/
 @Data
 public class UserInfoModel {
-    private int age;
     private String name;
+    private int age;
     private int sex;
     private String phoneNum;
 }
