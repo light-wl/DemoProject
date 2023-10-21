@@ -15,7 +15,7 @@
         CREATE TABLE IF NOT EXISTS sharding_user_${date} (LIKE sharding_user)
     </update>
 
-    <select id="getUserInfoOne" resultType="com.light.mapper.UserInfo">
+    <select id="getUserInfoOne" resultType="com.light.mapper.UserInfoModel">
         SELECT
         *
         FROM
@@ -25,7 +25,7 @@
         limit 1;
     </select>
 
-    <select id="getUserInfoTwo" resultType="com.light.mapper.UserInfo">
+    <select id="getUserInfoTwo" resultType="com.light.mapper.UserInfoModel">
         SELECT
         *
         FROM
@@ -35,7 +35,7 @@
         limit 1;
     </select>
 
-    <select id="getUserInfoThree" resultType="com.light.mapper.UserInfo">
+    <select id="getUserInfoThree" resultType="com.light.mapper.UserInfoModel">
         SELECT
         *
         FROM
@@ -45,7 +45,7 @@
         limit 1;
     </select>
 
-    <select id="getUserInfoFour" resultType="com.light.mapper.UserInfo">
+    <select id="getUserInfoFour" resultType="com.light.mapper.UserInfoModel">
         SELECT
         <include refid="resultColumn"/>
         FROM user_info
@@ -55,7 +55,7 @@
         </foreach>
     </select>
 
-    <select id="getUserInfoFive" resultType="com.light.mapper.UserInfo">
+    <select id="getUserInfoFive" resultType="com.light.mapper.UserInfoModel">
         SELECT
         <include refid="resultColumn"/>
         FROM user_info
@@ -65,11 +65,11 @@
         </foreach>
     </select>
 
-    <select id="getUserInfoSix" resultType="com.light.mapper.UserInfo">
+    <select id="getUserInfoSix" resultType="com.light.mapper.UserInfoModel">
         SELECT *
         FROM user_info
         WHERE
-        sex = #{userInfo.sex} and age = #{age};
+        sex = #{userInfoModel.sex} and age = #{age};
     </select>
 </mapper>
 

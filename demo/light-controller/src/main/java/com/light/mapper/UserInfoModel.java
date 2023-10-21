@@ -8,7 +8,7 @@ import lombok.Data;
  * @Desc
  **/
 @Data
-public class UserInfo {
+public class UserInfoModel {
     private int age;
     private String name;
     private int sex;

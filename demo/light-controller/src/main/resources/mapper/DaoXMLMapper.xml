@@ -4,7 +4,7 @@
 <mapper namespace="com.light.mapper.DaoXMLMapper">
 
     <!-- 将 SQL 的字段映射到对象中，特别是带下划线的那种 -->
-    <resultMap type="com.light.mapper.UserInfo" id="resultMap">
+    <resultMap type="com.light.mapper.UserInfoModel" id="resultMap">
         <result column="age" property="age"/>
         <result column="name" property="name"/>
         <result column="sex" property="sex"/>
@@ -17,7 +17,7 @@
     </sql>
 
     <!-- 使用提前准备好的SQL -->
-    <select id="getUserInfo" resultType="com.light.mapper.UserInfo">
+    <select id="getUserInfo" resultType="com.light.mapper.UserInfoModel">
         <include refid="selectAll"/>
         <where>
             <if test = "name != null and name != ''">

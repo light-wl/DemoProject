@@ -12,5 +12,5 @@ public interface DaoXMLMapper {
     /**
      *
      */
-    UserInfo getUserInfo(String name);
+    UserInfoModel getUserInfo(String name);
 }

@@ -30,9 +30,9 @@ public class DaoController {
      */
     @RequestMapping("getUserInfoOne")
     public Response getUserInfoOne() {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setSex(1);
-        UserInfo result = paramMapper.getUserInfoOne(userInfo);
+        UserInfoModel userInfoModel = new UserInfoModel();
+        userInfoModel.setSex(1);
+        UserInfoModel result = paramMapper.getUserInfoOne(userInfoModel);
         return Response.success(result);
     }
 
@@ -40,17 +40,17 @@ public class DaoController {
     public Response getUserInfoTwo() {
         Map<String, String> map = new HashMap<>();
         map.put("sex", "1");
-        UserInfo result = paramMapper.getUserInfoTwo(map);
+        UserInfoModel result = paramMapper.getUserInfoTwo(map);
         return Response.success(result);
     }
 
     @RequestMapping("getUserInfoThree")
     public Response getUserInfoThree() {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setSex(1);
-        Map<String, UserInfo> map = new HashMap<>();
-        map.put("user", userInfo);
-        UserInfo result = paramMapper.getUserInfoThree(map);
+        UserInfoModel userInfoModel = new UserInfoModel();
+        userInfoModel.setSex(1);
+        Map<String, UserInfoModel> map = new HashMap<>();
+        map.put("user", userInfoModel);
+        UserInfoModel result = paramMapper.getUserInfoThree(map);
         return Response.success(result);
     }
 
@@ -58,22 +58,22 @@ public class DaoController {
     public Response getUserInfoFour() {
         List<Integer> ids = new ArrayList<>();
         ids.add(6);
-        UserInfo result = paramMapper.getUserInfoFour(ids);
+        UserInfoModel result = paramMapper.getUserInfoFour(ids);
         return Response.success(result);
     }
 
     @RequestMapping("getUserInfoFive")
     public Response getUserInfoFive() {
         Integer[] ids = new Integer[]{6};
-        UserInfo result = paramMapper.getUserInfoFive(ids);
+        UserInfoModel result = paramMapper.getUserInfoFive(ids);
         return Response.success(result);
     }
 
     @RequestMapping("getUserInfoSix")
     public Response getUserInfoSix() {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setSex(1);
-        UserInfo result = paramMapper.getUserInfoSix(userInfo, 12);
+        UserInfoModel userInfoModel = new UserInfoModel();
+        userInfoModel.setSex(1);
+        UserInfoModel result = paramMapper.getUserInfoSix(userInfoModel, 12);
         return Response.success(result);
     }
 
