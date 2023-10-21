@@ -16,10 +16,10 @@
     </properties>
 
     <!--
-    子模块可以集成父模块所有的依赖
+    子模块可以继承父模块所有的依赖
     -->
     <dependencies>
-        <!--    项目内部依赖    -->
+        <!--    子模块间相互调用，需要引入对应的依赖    -->
         <dependency>
             <groupId>com.light</groupId>
             <artifactId>light-mq</artifactId>

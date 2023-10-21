@@ -41,13 +41,18 @@
         <module>light-common</module>
     </modules>
 
+    <!--
+    <properties>：归类依赖版本，某一类依赖使用同一个版本号可以抽出做公共变量。
+    使用方式：${lombok.version}
+    -->
     <properties>
         <lombok.version>1.16.18</lombok.version>
     </properties>
+
     <!--
-    1、starter 进行统一管理，统一调用；
-    2、自己模块单独使用的包，自己管理，就不在这里统一管理版本号了；
-    3、两个或者以上的包不需要统计管理，统一放在最外层调用即可；
+    1、<dependencyManagement>：用来管理jar包，可以在里面添加所有的jar包，并填写版本号，当子model需要引用时，可以不用填写版本号。
+    这里并不会去下载jar包，只做管理用，只有子类用到了，才会真正下载。
+    2、父POM通过<dependencyManagement>管理依赖，子POM引用不用加版本号，加了也可以，会覆盖父类的（这样就起不到管理的意义了）
     -->
     <dependencyManagement>
         <dependencies>
@@ -61,6 +66,11 @@
         </dependencies>
     </dependencyManagement>
 
+    <!--
+    父类 dependencies 的作用：
+    1、对 starter 进行统一管理，统一调用；
+    2、两个或以上的子模块有使用到的包，则可以抽出来放在父POM中统一管理，这里就是所有子POM的公共依赖
+    -->
     <dependencies>
         <!--        @Slf4j日志抽象层的依赖      -->
         <dependency>
@@ -94,3 +104,9 @@
     </dependencies>
 
 </project>
+
+
+<!--
+问：当依赖冲突时如：A->B->C->X(1.0);A->D->X(2.0)，就需要选择一个了。
+答：Maven依赖调解的第一原则：路径最近者优先。当一样时，第二原则，第一声明者优先。
+-->
