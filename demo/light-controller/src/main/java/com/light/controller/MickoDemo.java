@@ -18,6 +18,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -37,8 +38,7 @@ public class MickoDemo {
 
     public static void main(String[] args) {
         MickoDemo mickoDemo = new MickoDemo();
-        String msg = "发送给钉钉的消息";
-        mickoDemo.dingdingMsg(msg);
+        mickoDemo.getTable();
     }
 
     public void getTable() {
@@ -53,9 +53,9 @@ public class MickoDemo {
             String channelId = tableMap.getJSONArray("rows").getJSONObject(i).getJSONObject("attr_dependency").getString("channel_id");
             String subUrl = subTableUrl + "&drilldown=channel:" + channelId;
             String subTableResponse = HttpClientUtil.httpRequest(subUrl);
-
             System.out.println(channel);
             System.out.println(subTableResponse);
+            dingdingMsg(subTableResponse);
         }
     }
 
@@ -82,16 +82,28 @@ public class MickoDemo {
                     .append("&timestamp=").append(timestamp)
                     .append("&sign=").append(getSign(SECRET, timestamp))
                     .toString();
-            Map<String, Object> actionCard = new HashMap<>();
-            actionCard.put("text", msg);
+            Map<String, Object> content = new HashMap<>();
+            content.put("content", "发送给钉钉的消息");
             Map<String, Object> param = new HashMap<>();
-            param.put("actionCard", actionCard);
-            param.put("msgtype", "actionCard");
+            param.put("msgtype", "text");
+            param.put("text", content);
             String responseResult = HttpClientUtil.httpPost(url, JSONObject.toJSONString(param));
             log.info("钉钉发送消息【{}】返回结果：{}", msg, responseResult);
         } catch (Exception e) {
             log.error("钉钉发送消息异常，异常堆栈信息：", e);
         }
+    }
+
+    private void msgType() {
+        // 文本信息
+        Map<String, Object> content = new HashMap<>();
+        content.put("content", "发送给钉钉的消息");
+        Map<String, Object> param = new HashMap<>();
+        param.put("msgtype", "text");
+        param.put("text", content);
+
+        // 文件类型
+
     }
 
     private static String getSign(String tcSecret, long timestamp) throws Exception {
@@ -101,6 +113,10 @@ public class MickoDemo {
         byte[] signData = mac.doFinal(stringToSign.getBytes(StandardCharsets.UTF_8));
         String sign = URLEncoder.encode(new String(Base64.encodeBase64(signData)), "UTF-8");
         return sign;
+    }
+
+    private void createExcel() {
+
     }
 
 
