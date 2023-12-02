@@ -32,8 +32,8 @@ public class DaoController {
     public Response getUserInfoOne() {
         UserInfoModel userInfoModel = new UserInfoModel();
         userInfoModel.setSex(1);
-        UserInfoModel result = paramMapper.getUserInfoOne(userInfoModel);
-        return Response.success(result);
+//        UserInfoModel result = paramMapper.getUserInfoOne(userInfoModel);
+        return Response.success(null);
     }
 
     @RequestMapping("getUserInfoTwo")

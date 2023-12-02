@@ -16,6 +16,6 @@ public enum ReturnCodeEnum {
     SUCCESS("0000", "成功"),
     ;
 
-    final String retCode;
-    final String retMsg;
+    String retCode;
+    String retMsg;
 }
