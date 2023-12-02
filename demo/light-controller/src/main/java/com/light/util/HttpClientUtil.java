@@ -1,10 +1,12 @@
 package com.light.util;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,51 @@ public class HttpClientUtil {
 
     public static void main(String[] args) {
 
+    }
+
+    public static String httpPost(String urlString, String param) {
+        try {
+            // 创建URL对象
+            URL url = new URL(urlString);
+
+            // 打开连接
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // 设置请求方法
+            connection.setRequestMethod("POST");
+            // 启用输入输出流
+            connection.setDoOutput(true);
+            // 设置cookie
+            connection.setRequestProperty("Cookie", cookie);
+            // 设置请求头
+            connection.setRequestProperty("Content-Type", "application/json");
+            // 获取输出流并写入请求数据
+            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+                outputStream.write(param.getBytes(StandardCharsets.UTF_8));
+            }
+
+            // 获取响应代码
+            int responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
+
+            // 读取响应内容
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            // 关闭连接
+            connection.disconnect();
+            // 打印响应内容
+            System.out.println("Response Content: " + response.toString());
+            return response.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static String httpRequest(String urlString) {
