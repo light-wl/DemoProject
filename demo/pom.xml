@@ -37,7 +37,7 @@
         <module>light-controller</module>
         <module>light-start</module>
         <module>light-mq</module>
-        <module>light-dubbo</module>
+<!--        <module>light-dubbo</module>-->
         <module>light-common</module>
     </modules>
 

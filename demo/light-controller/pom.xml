@@ -26,8 +26,14 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.light</groupId>
+            <artifactId>light-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
-        <!--        常用工具库依赖开始       -->
+
         <!-- fastjson依赖 -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -83,10 +89,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
-        <!--     quartz 任务调度结束     -->
-
-        <!--        性能分析工具依赖开始      -->
-        <!-- 性能分析工具arthas -->
         <dependency>
             <groupId>com.taobao.arthas</groupId>
             <artifactId>arthas-spring-boot-starter</artifactId>
@@ -182,6 +184,5 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-        <!--        单元测试包结束     -->
     </dependencies>
 </project>
