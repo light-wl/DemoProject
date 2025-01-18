@@ -1,6 +1,4 @@
-package light.lesson.common;
-
-import com.sun.deploy.util.StringUtils;
+package light.lesson.utils;
 
 /**
  * @Author light

@@ -1,12 +1,8 @@
-package com.light.util;
-
-
-import org.springframework.util.StringUtils;
+package com.light.utils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
-import java.util.TimeZone;
 
 public class LocalDateUtil {
     public static final String YEAR = "YEAR";
@@ -23,25 +19,76 @@ public class LocalDateUtil {
     public final static String TO_MONTH_LONG = "yyyy-MM";
     public final static String TO_MONTH_SHORT = "yyyyMM";
     public final static String TO_HMS = "HH:mm:ss";
+    public final static String ZONE_ID_SHANGHAI = "Asia/Shanghai";
+    public final static String ZONE_ID_NEWYORK = "America/New_York";
 
     /**
-     * 零时区时间
+     * 日期转字符串-不带时区
+     *
+     * @param localDateTime 传入需要格式化的日期
+     * @param pattern       需要格式化的格式
+     * @return String 返回格式化的日期
      */
-    public static final TimeZone TIMEZONE_GMT = TimeZone.getTimeZone("GMT+0:00");
-
-    /**
-     * 中国沿海时间
-     */
-    public static final TimeZone TIMEZONE_CCT = TimeZone.getTimeZone("GMT+8:00");
-
-    // 获取当前时间
-    public static LocalDateTime getCurrentTime(TimeZone timeZone) {
-        return LocalDateTime.now(timeZone.toZoneId());
+    public static String localDateTimeToString(LocalDateTime localDateTime, String pattern) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        return dateTimeFormatter.format(localDateTime);
     }
 
-    // 获取当前日期
-    public static LocalDate getCurrentDate(TimeZone timeZone) {
-        return LocalDate.now(timeZone.toZoneId());
+    /**
+     * 日期转字符串-带时区
+     *
+     * @param localDateTime 传入需要格式化的日期
+     * @param pattern       需要格式化的格式
+     * @param zoneId        国际时区 Locale.CHINA
+     * @return String 返回格式化的日期
+     */
+    public static String changeZone(LocalDateTime localDateTime, ZoneId zoneId, String pattern) {
+        LocalDateTime newLocalDateTime = changeZone(localDateTime, zoneId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return newLocalDateTime.format(formatter);
+    }
+
+    public static LocalDateTime changeZone(LocalDateTime localDateTime, ZoneId zoneId) {
+        ZoneId defaultZoneId = ZoneId.systemDefault(); //获取系统默认时区
+        ZonedDateTime zonedDateTime = localDateTime.atZone(defaultZoneId);
+        ZonedDateTime newYorkDateTime = zonedDateTime.withZoneSameInstant(zoneId); //获取不同时区，但是相同的0时区时间点
+        return newYorkDateTime.toLocalDateTime();
+    }
+
+
+    // 获取当前时间
+    public static LocalDateTime getCurrentTime() {
+        ZoneId zoneId = ZoneId.of(ZONE_ID_SHANGHAI);
+        return LocalDateTime.now(zoneId);
+    }
+
+    // 获取当前时间-带时区
+    public static LocalDateTime getCurrentTime(ZoneId zoneId) {
+        return LocalDateTime.now(zoneId);
+    }
+
+    public static LocalDate changeLocalDate(LocalDate localDate, String type, Integer num) {
+        switch (type) {
+            case YEAR:
+                return localDate.plusYears(num);
+            case MONTH:
+                return localDate.plusMonths(num);
+            case DAT:
+                return localDate.plusDays(num);
+        }
+        return localDate;
+    }
+
+    public static LocalDateTime changeLocalDateTime(LocalDateTime localDateTime, String type, Integer num) {
+        switch (type) {
+            case HOUR:
+                return localDateTime.plusHours(num);
+            case MINITE:
+                return localDateTime.plusMinutes(num);
+            case SECOND:
+                return localDateTime.plusSeconds(num);
+        }
+        return localDateTime;
     }
 
     private static void localDateCommon() {
@@ -138,72 +185,19 @@ public class LocalDateUtil {
         //减少一个月
         localDateTime = localDateTime.minusMonths(1);
         System.out.println(localDateTime);
-
-
-    }
-
-    private static void DateTimeFormatter() {
-        LocalDate localDate = null;
-        // 字符串转日期
-        localDate = LocalDate.parse("20190910", DateTimeFormatter.BASIC_ISO_DATE);
-        System.out.println(localDate);
-        localDate = LocalDate.parse("2019-09-10", DateTimeFormatter.ISO_LOCAL_DATE);
-        System.out.println(localDate);
-
-        // 日期转字符串
+        
     }
 
 
-    public static String localDate2String(LocalDate localDate, String format) {
-        //localDate.toString() 默认是 yyyy-MM-dd
-        if (StringUtils.hasText(format)) {
-            return localDate.toString();
-        }
-        DateTimeFormatter sf = DateTimeFormatter.ofPattern(format);
-        return sf.format(localDate);
-    }
-
-    public static String localTime2String(LocalTime localTime, String format) {
-        //localTime.toString() 默认是 17:50:25.973
-        if (StringUtils.hasText(format)) {
-            return localTime.toString();
-        }
-        DateTimeFormatter sf = DateTimeFormatter.ofPattern(format);
-        return sf.format(localTime);
-    }
-
-    public static LocalDate changeDay(LocalDate localDate, String type, Integer num) {
-        switch (type) {
-            case YEAR:
-                return localDate.plusYears(num);
-            case MONTH:
-                return localDate.plusMonths(num);
-            case DAT:
-                return localDate.plusDays(num);
-        }
-        return localDate;
-    }
-
-    public static LocalDateTime changeTime(LocalDateTime localDateTime, String type, Integer num) {
-        switch (type) {
-            case HOUR:
-                return localDateTime.plusHours(num);
-            case MINITE:
-                return localDateTime.plusMinutes(num);
-            case SECOND:
-                return localDateTime.plusSeconds(num);
-        }
-        return localDateTime;
-    }
-
-    public static LocalDate str2LocalDate(String str, String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        return LocalDate.parse(str, formatter);
-    }
-
-    public static String localDate2Str(LocalDate date, String format) {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
-        return date.format(fmt);
+    public static void main(String[] args) {
+        System.out.println(1);
     }
 
 }
+
+/**
+ * LocalDateTime.now()：不格式化输出【2025-01-17T22:42:09.600】
+ * Instant 代表一个瞬时的时间点值对象，它从1970-01-01T00:00:00Z点毫秒计算的，是不可变的，并且是线程安全的。
+ */
+
+

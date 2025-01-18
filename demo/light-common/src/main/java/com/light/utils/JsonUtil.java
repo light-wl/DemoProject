@@ -1,4 +1,4 @@
-package com.light.util;
+package com.light.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;

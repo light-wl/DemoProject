@@ -1,10 +1,8 @@
-package light.lesson.common;
+package light.lesson.utils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class LocalDateUtil {
     public static final String YEAR = "YEAR";
@@ -200,5 +198,6 @@ public class LocalDateUtil {
 
 /**
  * LocalDateTime.now()：不格式化输出【2025-01-17T22:42:09.600】
+ * Instant 代表一个瞬时的时间点值对象，它从1970-01-01T00:00:00Z点毫秒计算的，是不可变的，并且是线程安全的。
  */
 

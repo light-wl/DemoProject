@@ -1,9 +1,9 @@
-package light.lesson.common;
+package light.lesson.utils;
 
 /**
  * @Author light
  * @Date 2025/1/16
  * @Desc
  **/
-public class dingdingUtil {
+public class ExcelUtil {
 }

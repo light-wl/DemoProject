@@ -1,4 +1,4 @@
-package light.lesson.common;
+package light.lesson.utils;
 
 
 import java.text.ParseException;

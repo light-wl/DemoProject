@@ -1,11 +1,10 @@
-package light.lesson.common;
+package light.lesson.utils;
 
 
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Random;
 
 /**

@@ -1,4 +1,4 @@
-package light.lesson.common;
+package light.lesson.utils;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
