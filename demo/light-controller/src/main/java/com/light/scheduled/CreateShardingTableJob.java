@@ -1,10 +1,12 @@
 package com.light.scheduled;
 
 import com.light.mapper.DaoParamMapper;
+import com.light.utils.LocalDateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @Author light
@@ -19,9 +21,10 @@ public class CreateShardingTableJob {
     // 按天分表，每天凌晨跑一次，提前创建七张表
 //    @Scheduled(cron = "0 * * * * ?")
     public void execute() {
-        LocalDate tableDate = LocalDateUtil.getCurrentDate(LocalDateUtil.TIMEZONE_CCT);
+        LocalDateTime tableDate = LocalDateTime.now();
+        LocalDateUtil.localDateTimeToString(LocalDateTime.now(), LocalDateUtil.TO_DAY_SHORT);
         for (int i = 0; i < 7; i++) {
-            userMapper.createShardingTable(LocalDateUtil.localDate2Str(tableDate, LocalDateUtil.TO_DAY_SHORT));
+            userMapper.createShardingTable(LocalDateUtil.localDateTimeToString(tableDate, LocalDateUtil.TO_DAY_SHORT));
             tableDate = tableDate.plusDays(1L);
         }
     }

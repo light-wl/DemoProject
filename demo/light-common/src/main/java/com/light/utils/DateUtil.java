@@ -12,7 +12,20 @@ import java.util.concurrent.TimeUnit;
  * @Desc 日期工具类
  **/
 public class DateUtil {
-
+    public static final String YEAR = "YEAR";
+    public static final String MONTH = "MONTH";
+    public static final String DAT = "DAT";
+    public static final String HOUR = "HOUR";
+    public static final String MINITE = "MINITE";
+    public static final String SECOND = "SECOND";
+    public final static String TO_SECOND_LONG = "yyyy-MM-dd HH:mm:ss";
+    public final static String TO_SECOND_SHORT = "yyyyMMddHHmmss";
+    public final static String TO_MINUTE_LONG = "yyyy-MM-dd HH:mm";
+    public final static String TO_DAY_LONG = "yyyy-MM-dd";
+    public final static String TO_DAY_SHORT = "yyyyMMdd";
+    public final static String TO_MONTH_LONG = "yyyy-MM";
+    public final static String TO_MONTH_SHORT = "yyyyMM";
+    public final static String TO_HMS = "HH:mm:ss";
 
     /**
      * 1、获取日期中的某数值。如获取月份
@@ -45,7 +58,7 @@ public class DateUtil {
      * @param amount   数值:增加数量，可为负数
      * @return 计算后日期
      */
-    private static Date addInteger(Date date, int dateType, int amount) {
+    public static Date addInteger(Date date, int dateType, int amount) {
         Date myDate = null;
         if (date != null) {
             Calendar calendar = Calendar.getInstance();

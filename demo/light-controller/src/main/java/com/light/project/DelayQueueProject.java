@@ -1,11 +1,13 @@
 package com.light.project;
 
+import com.light.utils.DateUtil;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -33,7 +35,7 @@ public class DelayQueueProject {
     public void exec() {
         Orders orders = Orders.builder()
                 .orderNumber("1")
-                .time(DateUtil.changeDate(new Date(), DateUtil.SECOND, 10))
+                .time(DateUtil.addInteger(new Date(), Calendar.SECOND, 10))
                 .build();
         DelayQueueProject.orderQueue.add(orders);
         log.info("订单" + orders.getOrderNumber() + "未付款，到期时间 = {}", orders.getTime());
@@ -82,7 +84,8 @@ class Orders implements Delayed {
 class OrderDelayQueueJob implements CommandLineRunner {
 
     public void orderTask() {
-        log.info("开启自动取消订单job,当前时间 = {}", DateUtil.getCurrDate(DateUtil.TO_DATETIME_LONG));
+        log.info("开启自动取消订单job,当前时间 = {}", DateUtil.date2Str(new Date(), DateUtil.TO_SECOND_LONG));
+
         while (true) {
             try {
                 // 获取指定订单信息
@@ -90,7 +93,7 @@ class OrderDelayQueueJob implements CommandLineRunner {
                 // 从队列中删除该数据
                 DelayQueueProject.orderQueue.remove(order);
                 log.info("订单" + order.getOrderNumber() + "超时取消，取消时间 = {}",
-                        DateUtil.getCurrDate(DateUtil.TO_DATETIME_LONG));
+                        DateUtil.date2Str(new Date(), DateUtil.TO_SECOND_LONG));
                 log.info("Initial Size = {}", DelayQueueProject.orderQueue.size());
             } catch (InterruptedException e) {
                 break;
