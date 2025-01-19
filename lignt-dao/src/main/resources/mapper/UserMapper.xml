@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="light.lesson.ligntdao.mapper.UserMapper">
+
+    <sql id="resultColumn">
+        age,name,sex,phone
+    </sql>
+
+    <resultMap id="resultMap" type="light.lesson.ligntdao.common.model.User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+
+    <!--
+    # 和 $ 的区别：
+    1、# 方式能够很大程度防止sql注入，# 将传入的数据都当成一个字符串，会对自动传入的数据加一个双引号。
+    2、$ 方式无法防止Sql注入，但是在将表名当做参数传递时，需要用到，他会将变量直接替换，不会加引号。
+    -->
+    <update id="createShardingTable">
+        CREATE TABLE IF NOT EXISTS sharding_user_${date} (LIKE sharding_user)
+    </update>
+
+    <select id="listUserInfo" resultMap="resultMap">
+        SELECT
+        <include refid="resultColumn"/>
+        FROM user
+        <where>
+            <if test="name != null  and name != ''">and name = #{name}</if>
+            <if test="age != null">and age = #{age}</if>
+            <if test="sex != null">and sex = #{sex}</if>
+        </where>
+    </select>
+
+    <select id="getUserInfoTwo" resultMap="resultMap">
+        SELECT
+        <include refid="resultColumn"/>
+        FROM
+        user
+        WHERE
+        sex = #{sex}
+        limit 1;
+    </select>
+
+    <select id="getUserInfoThree" resultMap="resultMap">
+        SELECT
+        *
+        FROM
+        user_info
+        WHERE
+        sex = #{user.sex}
+        limit 1;
+    </select>
+
+    <select id="getUserInfoFour" resultMap="resultMap">
+        <include refid="resultColumn"/>
+        WHERE id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getUserInfoFive" resultMap="resultMap">
+        <include refid="resultColumn"/>
+        WHERE id in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getUserInfoSix" resultMap="resultMap">
+        SELECT *
+        FROM user_info
+        WHERE
+        sex = #{userInfoModel.sex} and age = #{age};
+    </select>
+</mapper>
+

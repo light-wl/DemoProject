@@ -1,4 +1,4 @@
-package light.lesson.ligntdao.model;
+package light.lesson.ligntdao.common.model;
 
 import lombok.Data;
 

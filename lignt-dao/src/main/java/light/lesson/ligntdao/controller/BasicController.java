@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package light.lesson.ligntdao.demos.web;
+package light.lesson.ligntdao.controller;
 
+import light.lesson.ligntdao.common.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;

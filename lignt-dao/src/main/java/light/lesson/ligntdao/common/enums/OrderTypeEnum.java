@@ -1,4 +1,4 @@
-package light.lesson.ligntdao.enums;
+package light.lesson.ligntdao.common.enums;
 
 /**
  * @Author light

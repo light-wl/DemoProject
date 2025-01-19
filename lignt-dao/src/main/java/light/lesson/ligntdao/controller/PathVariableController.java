@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package light.lesson.ligntdao.demos.web;
+package light.lesson.ligntdao.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

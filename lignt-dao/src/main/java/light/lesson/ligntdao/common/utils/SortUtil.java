@@ -1,4 +1,4 @@
-package light.lesson.ligntdao.utils;
+package light.lesson.ligntdao.common.utils;
 
 import java.util.Arrays;
 
