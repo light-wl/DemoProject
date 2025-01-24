@@ -1,6 +1,7 @@
 package com.light.mapper;
 
 import com.light.model.Response;
+import com.light.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,19 +21,15 @@ import java.util.Map;
 public class DaoController {
 
     @Autowired
-    private DaoParamMapper paramMapper;
-
-    @Autowired
-    private DaoXMLMapper xmlMapper;
+    private UserInfoMapper paramMapper;
 
     /**
      * paramMapper测试Controller
      */
     @RequestMapping("getUserInfoOne")
     public Response getUserInfoOne() {
-        UserInfoModel userInfoModel = new UserInfoModel();
-        userInfoModel.setSex(1);
-//        UserInfoModel result = paramMapper.getUserInfoOne(userInfoModel);
+        UserInfo userInfoModel = new UserInfo();
+//        UserInfo result = paramMapper.getUserInfoOne(userInfoModel);
         return Response.success(null);
     }
 
@@ -40,17 +37,16 @@ public class DaoController {
     public Response getUserInfoTwo() {
         Map<String, String> map = new HashMap<>();
         map.put("sex", "1");
-        UserInfoModel result = paramMapper.getUserInfoTwo(map);
+        UserInfo result = paramMapper.getUserInfoTwo(map);
         return Response.success(result);
     }
 
     @RequestMapping("getUserInfoThree")
     public Response getUserInfoThree() {
-        UserInfoModel userInfoModel = new UserInfoModel();
-        userInfoModel.setSex(1);
-        Map<String, UserInfoModel> map = new HashMap<>();
+        UserInfo userInfoModel = new UserInfo();
+        Map<String, UserInfo> map = new HashMap<>();
         map.put("user", userInfoModel);
-        UserInfoModel result = paramMapper.getUserInfoThree(map);
+        UserInfo result = paramMapper.getUserInfoThree(map);
         return Response.success(result);
     }
 
@@ -58,22 +54,21 @@ public class DaoController {
     public Response getUserInfoFour() {
         List<Integer> ids = new ArrayList<>();
         ids.add(6);
-        UserInfoModel result = paramMapper.getUserInfoFour(ids);
+        UserInfo result = paramMapper.getUserInfoFour(ids);
         return Response.success(result);
     }
 
     @RequestMapping("getUserInfoFive")
     public Response getUserInfoFive() {
         Integer[] ids = new Integer[]{6};
-        UserInfoModel result = paramMapper.getUserInfoFive(ids);
+        UserInfo result = paramMapper.getUserInfoFive(ids);
         return Response.success(result);
     }
 
     @RequestMapping("getUserInfoSix")
     public Response getUserInfoSix() {
-        UserInfoModel userInfoModel = new UserInfoModel();
-        userInfoModel.setSex(1);
-        UserInfoModel result = paramMapper.getUserInfoSix(userInfoModel, 12);
+        UserInfo userInfoModel = new UserInfo();
+        UserInfo result = paramMapper.getUserInfoSix(userInfoModel, 12);
         return Response.success(result);
     }
 

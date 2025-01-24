@@ -26,4 +26,11 @@ public class Response<T> implements Serializable {
         return response;
     }
 
+    public static <T> Response<T> success() {
+        Response<T> response = new Response<T>();
+        response.setRetCode(ReturnCodeEnum.SUCCESS.getRetCode());
+        response.setRetMsg(ReturnCodeEnum.SUCCESS.getRetMsg());
+        return response;
+    }
+
 }

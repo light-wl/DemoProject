@@ -1,5 +1,6 @@
 package com.light.a.javabase;
 
+import com.light.model.UserInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,7 +120,7 @@ public class CallbackDemo {
      * 回调函数代码示例：定义方法
      */
     private void handleSingle(UserInfo user, CallBackFunction callBackFunction) throws Exception {
-        callBackFunction.callback(user.getAge(), user.getName());
+        callBackFunction.callback(user.getStatus(), user.getName());
     }
 
     /**
@@ -127,7 +128,6 @@ public class CallbackDemo {
      */
     public void init() throws Exception {
         UserInfo user = new UserInfo();
-        user.setAge(10);
         user.setName("TOM");
         handleSingle(user, (age, name) -> {
             System.out.printf("这个人的姓名是：%d,年龄：%s", age, name);

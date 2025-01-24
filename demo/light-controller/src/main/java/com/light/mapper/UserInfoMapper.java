@@ -1,6 +1,8 @@
 package com.light.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.light.dto.UserInfoDTO;
+import com.light.model.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,7 +15,7 @@ import java.util.Map;
  * @Desc 几种常见的传参情况
  **/
 @Mapper
-public interface DaoParamMapper extends BaseMapper<UserInfoModel> {
+public interface UserInfoMapper extends BaseMapper<UserInfo> {
     /**
      * 1、传递零散参数
      * 方式一：传入一个参数时，可以不用添加 Param 注解
@@ -27,35 +29,35 @@ public interface DaoParamMapper extends BaseMapper<UserInfoModel> {
      * 2、传入实体类，一般可以传入DTO，
      * 可以直接调用里面的参数
      */
-    List<UserInfoModel> listUserInfo(UserInfoModel user);
+    List<UserInfo> listUserInfo(UserInfoDTO dto);
 
     /**
      * 3、传入Map
      * 当传入的是 map 时，只需要取对应的 key 即可
      */
-    UserInfoModel getUserInfoTwo(Map<String, String> map);
+    UserInfo getUserInfoTwo(Map<String, String> map);
 
     /**
      * 3、传入Map
      * 当传入map的值是一个对象时，也一样，只需要取key就能拿到这个对象
      */
-    UserInfoModel getUserInfoThree(Map<String, UserInfoModel> map);
+    UserInfo getUserInfoThree(Map<String, UserInfo> map);
 
     /**
      * 4、传入List
      * 需要循环构造条件
      */
-    UserInfoModel getUserInfoFour(List<Integer> ids);
+    UserInfo getUserInfoFour(List<Integer> ids);
 
     /**
      * 5、传入数组
      * 需要循环构造条件
      */
-    UserInfoModel getUserInfoFive(Integer[] ids);
+    UserInfo getUserInfoFive(Integer[] ids);
 
     /**
      * 6、传入实体类 + 单个参数
      * 需要循环构造条件
      */
-    UserInfoModel getUserInfoSix(@Param("userInfo") UserInfoModel user, @Param("age") Integer age);
+    UserInfo getUserInfoSix(@Param("userInfo") UserInfo user, @Param("age") Integer age);
 }

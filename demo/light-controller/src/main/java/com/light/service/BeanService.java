@@ -1,4 +1,4 @@
-package com.light.controller;
+package com.light.service;
 
 import org.springframework.stereotype.Component;
 

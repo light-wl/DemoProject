@@ -55,4 +55,7 @@ public class UserInfoDTO {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    private String startTime;
+    private String endTime;
 }

@@ -3,6 +3,8 @@ package com.light.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.light.dto.UserInfoDTO;
 import com.light.model.Response;
+import com.light.service.BeanService;
+import com.light.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/RestControllerDemo")
-public class RestControllerDemo {
+public class RestLessonController {
     /**
      * @Autowired 默认根据类型进行自动注入
      * @Qualifier 当出现多个相同类型时，可以指定名称
@@ -28,6 +30,15 @@ public class RestControllerDemo {
     @Autowired
     @Qualifier("beanService")
     private BeanService beanService;
+
+    @Autowired
+    private UserInfoService userInfoService;
+
+    @PostMapping
+    public Response getUserInfo(@RequestBody UserInfoDTO dto) {
+        userInfoService.getUserInfo(dto.getId());
+        return Response.success();
+    }
 
 
     /**
