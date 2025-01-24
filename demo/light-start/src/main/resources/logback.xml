@@ -3,7 +3,8 @@
     <contextName>logback</contextName>
 
     <!-- 标签：property，表示全局变量，可以方便后面配置引用   -->
-    <property name="logging.path" value="/Users/light/Desktop/Git/DemoProject/DemoProject/demo/logs"/>
+<!--    <property name="logging.path" value="/Users/light/Desktop/Git/DemoProject/DemoProject/demo/logs"/>-->
+    <property name="logging.path" value="logs"/>
 
     <!--0. 日志格式和颜色渲染 -->
     <!-- 彩色日志格式 -->

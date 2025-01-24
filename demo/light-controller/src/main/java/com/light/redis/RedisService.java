@@ -1,7 +1,7 @@
 package com.light.redis;
 
-import org.springframework.util.StringUtils;
-import redis.clients.jedis.Jedis;
+//import org.springframework.util.StringUtils;
+//import redis.clients.jedis.Jedis;
 
 /**
  * @Author light
@@ -14,14 +14,14 @@ public class RedisService {
      * 2、如果Redis没有，则查询MySQL；
      * 3、然后同步到Redis中；
      */
-    public String getUserNameById(String userId) {
-        JedisUtil.connect();
-        Jedis jedis = JedisUtil.getRedis();
-        String name = jedis.get(userId);
-        if (!StringUtils.hasLength(name)) {
-            name = "数据库查询";
-            jedis.set(userId, name);
-        }
-        return name;
-    }
+//    public String getUserNameById(String userId) {
+//        JedisUtil.connect();
+//        Jedis jedis = JedisUtil.getRedis();
+//        String name = jedis.get(userId);
+//        if (!StringUtils.hasLength(name)) {
+//            name = "数据库查询";
+//            jedis.set(userId, name);
+//        }
+//        return name;
+//    }
 }

@@ -33,12 +33,12 @@
     注意<groupId>是父工程的id，然后还要加个<version>和<scope>compile<scope>,重点
     -->
     <modules>
-        <module>light-excel</module>
-        <module>light-controller</module>
         <module>light-start</module>
-        <module>light-mq</module>
-<!--        <module>light-dubbo</module>-->
         <module>light-common</module>
+        <module>light-controller</module>
+        <!--        <module>light-excel</module>-->
+        <!--        <module>light-mq</module>-->
+        <!--        <module>light-dubbo</module>-->
     </modules>
 
     <!--
@@ -46,7 +46,8 @@
     使用方式：${lombok.version}
     -->
     <properties>
-        <lombok.version>1.16.18</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
+        <fastjson.version>1.2.75</fastjson.version>
     </properties>
 
     <!--
@@ -63,6 +64,12 @@
                 <version>${lombok.version}</version>
             </dependency>
 
+            <!--    工具类依赖   -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -76,6 +83,16 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--    工具类依赖   -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
 
         <!--        Spring依赖开始        -->
@@ -95,18 +112,18 @@
 
         <!--        Dubbo 的依赖开始       -->
         <!--dubbo依赖（启动类要加@EnableDubbo，只能在启动类的pom中添加该包了）-->
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>3.1.0</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.dubbo</groupId>-->
+        <!--            <artifactId>dubbo-spring-boot-starter</artifactId>-->
+        <!--            <version>3.1.0</version>-->
+        <!--        </dependency>-->
         <!--        Dubbo 的依赖结束       -->
     </dependencies>
 
 </project>
 
 
-<!--
-问：当依赖冲突时如：A->B->C->X(1.0);A->D->X(2.0)，就需要选择一个了。
-答：Maven依赖调解的第一原则：路径最近者优先。当一样时，第二原则，第一声明者优先。
--->
+        <!--
+        问：当依赖冲突时如：A->B->C->X(1.0);A->D->X(2.0)，就需要选择一个了。
+        答：Maven依赖调解的第一原则：路径最近者优先。当一样时，第二原则，第一声明者优先。
+        -->

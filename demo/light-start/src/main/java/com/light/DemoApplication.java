@@ -1,9 +1,9 @@
 package com.light;
 
 import com.light.aop.filter.LogFilter;
-import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+//import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+//import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -18,8 +18,8 @@ import java.io.Serializable;
 @MapperScan("com.light.mapper")
 @EnableScheduling
 @EnableAsync
-@EnableRabbit
-@EnableDubbo
+//@EnableRabbit
+//@EnableDubbo
 public class DemoApplication implements Serializable {
 
     public static void main(String[] args) {
