@@ -1,6 +1,7 @@
 package com.light.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.light.dto.UserInfoDTO;
 import com.light.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +34,7 @@ public class RestControllerDemo {
      * 1、常见写法，后出现 @PostMapping 简便的写法，缺点是 @PostMapping 只能作用于方法上，不能作用于类上
      */
     @RequestMapping(value = "/postOne", method = RequestMethod.POST)
-    public Response postOne(@RequestBody PersonDTO dto) {
+    public Response postOne(@RequestBody UserInfoDTO dto) {
         return Response.success(dto.getName());
     }
 
@@ -43,7 +44,7 @@ public class RestControllerDemo {
      * 方式一：最常用，使用一个对象接受参数，适用于传递较多参数的场景
      */
     @PostMapping("/postTwo")
-    public Response postTwo(@RequestBody PersonDTO dto) {
+    public Response postTwo(@RequestBody UserInfoDTO dto) {
         return Response.success(dto.getName());
     }
 
