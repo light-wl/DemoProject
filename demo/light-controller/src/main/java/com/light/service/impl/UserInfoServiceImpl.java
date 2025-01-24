@@ -7,6 +7,8 @@ import com.light.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author ：light
  * @date ：2025/1/24 11:09:45
@@ -18,12 +20,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public void getUserInfo(long userId) {
-        this.mybatisLessonMethod();
+    public void getUserInfo(UserInfoDTO dto) {
+        this.mybatisLessonMethod(dto);
     }
 
-    private void mybatisLessonMethod(){
-        UserInfoDTO dto = new UserInfoDTO();
-        userInfoMapper.listUserInfo(dto);
+    private void mybatisLessonMethod(UserInfoDTO dto){
+        List<UserInfo> result = userInfoMapper.listUserInfo(dto);
+        System.out.println(result.toString());
     }
 }

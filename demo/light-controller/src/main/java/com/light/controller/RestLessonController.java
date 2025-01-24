@@ -21,7 +21,7 @@ import java.util.Map;
  **/
 
 @RestController
-@RequestMapping("/RestControllerDemo")
+@RequestMapping("/RestLesson")
 public class RestLessonController {
     /**
      * @Autowired 默认根据类型进行自动注入
@@ -34,9 +34,9 @@ public class RestLessonController {
     @Autowired
     private UserInfoService userInfoService;
 
-    @PostMapping
+    @PostMapping("/getUserInfo")
     public Response getUserInfo(@RequestBody UserInfoDTO dto) {
-        userInfoService.getUserInfo(dto.getId());
+        userInfoService.getUserInfo(dto);
         return Response.success();
     }
 
