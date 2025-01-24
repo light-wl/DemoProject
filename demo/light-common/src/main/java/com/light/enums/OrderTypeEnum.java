@@ -6,17 +6,17 @@ package com.light.enums;
  * @Desc 错误示范，或者叫冗余写法示范，可以看另一个枚举类的简便写法
  **/
 public enum OrderTypeEnum {
-    NORMAL("普通订单", "0001"),
-    GROUPON("团购订单","0002"),
-    PROMOTION("促销订单","0003"),
+    NORMAL("0001", "普通订单"),
+    GROUPON("0002", "团购订单"),
+    PROMOTION("0003", "促销订单"),
     ;
 
-    final String name;
     final String code;
-    public String getName(){return name;}
+    final String name;
     public String getCode(){return code;}
-    OrderTypeEnum(String name, String code){
-        this.name = name;
+    public String getName(){return name;}
+    OrderTypeEnum(String code, String name){
         this.code = code;
+        this.name = name;
     }
 }

@@ -13,7 +13,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ReturnCodeEnum {
-    SUCCESS("0000", "成功"),
+    SUCCESS("200", "成功"),
     ;
 
     final String retCode;
