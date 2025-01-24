@@ -3,13 +3,15 @@
     <contextName>logback</contextName>
 
     <!-- 标签：property，表示全局变量，可以方便后面配置引用   -->
-<!--    <property name="logging.path" value="/Users/light/Desktop/Git/DemoProject/DemoProject/demo/logs"/>-->
+    <!--    <property name="logging.path" value="/Users/light/Desktop/Git/DemoProject/DemoProject/demo/logs"/>-->
     <property name="logging.path" value="logs"/>
 
     <!--0. 日志格式和颜色渲染 -->
     <!-- 彩色日志格式 -->
     <property name="CONSOLE_LOG_PATTERN"
               value="%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
+    <!--  debug 日志格式  -->
+    <property name="DEBUG_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
 
     <!--1. 输出到控制台-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -18,7 +20,7 @@
         <!--            <level>WARN</level>-->
         <!--        </filter>-->
         <encoder>
-            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
             <charset>UTF-8</charset><!-- 设置字符集 -->
         </encoder>
     </appender>
@@ -30,7 +32,7 @@
         <file>${logging.path}/debug.log</file>
         <!--日志文档输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>${DEBUG_LOG_PATTERN}</pattern>
             <charset>UTF-8</charset> <!-- 设置字符集 -->
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
@@ -57,7 +59,7 @@
         <file>${logging.path}/info.log</file>
         <!--日志文档输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>${DEBUG_LOG_PATTERN}</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
@@ -129,6 +131,12 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
+
+    <!--
+    /* additivity="false" 表示不向root传递打印信息，只打印一次信息，为true时，则会向root传递，此时可能会打印两次；*/
+    logger标签可以解决，将不同的类打印到不同的日志文件中，比如MQ的一个log，交易的一个log，任何一个类只会和一个logger对应，要么是定义的logger，
+    要么是root，判断的关键在于找到这个logger，可以这么理解，root是全局的日志配置，logger可以自定义不同的功能如交易打印到指定的位置。首先类会找自己的logger，如果没有则默认为root。
+    -->
     <logger name="demo" level="debug" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="DEBUG_FILE"/>
@@ -138,8 +146,19 @@
     </logger>
 
     <!-- 日志级别越低，日志打印到控制台的信息就越多，因为会打印该等级以上的所有需要输出的内容 -->
+    <!--
+    <root>标签：只有一个 level 属性,是 logger 的上级，定义日志记录器的根节点，用于指定日志级别和输出目标
+    level 属性指定日志记录器的级别，包括 OFF【关闭日志】、ERROR、WARN、INFO【默认】、DEBUG、TRACE、ALL：日志级别越低，日志打印到控制台的信息就越多
+    appender-ref 元素用于指定输出目标，可以是控制台，也可以是文件。注意和级别的区别，级别定义输出日志的多少，此元素定义输出的位置
+    -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
 
+<!--标签详解-->
+<!--property标签：相当于一个变量-->
+<!--appender标签：相当于一个输出样式，包括颜色，格式，控制台还是文件，等等一些列打包在一起-->
+<!--logger标签：可以指定某些类，将不同的业务信息用不同的logger打印-->
+<!--root标签：默认的logger，一般我们也没那么精细的将不同的业务打包成不同的logger，都是将业务分成模块，每个模块一个logback，所以一般配个全局的root即可。
+<logger>是有父子关系的，<root>是一个特殊的<logger> ，其name="ROOT"，是所有<logger>的祖先节点，父子关系是根据name属性的层级来确定的-->

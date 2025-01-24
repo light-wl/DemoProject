@@ -52,14 +52,12 @@
     </select>
 
     <select id="getUserInfoTwo" resultMap="BaseResultMap">
-        SELECT *
-        FROM user_info
+        <include refid="BaseSelect"/>
         WHERE sex = #{sex} limit 1;
     </select>
 
     <select id="getUserInfoThree" resultMap="BaseResultMap">
-        SELECT *
-        FROM user_info
+        <include refid="BaseSelect"/>
         WHERE sex = #{user.sex} limit 1;
     </select>
 
