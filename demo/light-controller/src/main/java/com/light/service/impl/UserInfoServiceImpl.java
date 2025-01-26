@@ -1,5 +1,7 @@
 package com.light.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.light.dto.UserInfoDTO;
 import com.light.mapper.UserInfoMapper;
 import com.light.model.UserInfo;
@@ -24,8 +26,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         this.mybatisLessonMethod(dto);
     }
 
-    private void mybatisLessonMethod(UserInfoDTO dto){
-        List<UserInfo> result = userInfoMapper.listUserInfo(dto);
-        System.out.println(result.toString());
+    private void mybatisLessonMethod(UserInfoDTO dto) {
+        // 开启分页功能，pageNum 表示当前页码，pageSize 表示每页显示的记录数
+        PageHelper.startPage(1, 20);
+        List<UserInfo> userInfoList = userInfoMapper.listUserInfo(dto);
+        PageInfo pageInfo = new PageInfo<>(userInfoList);
+        System.out.println(pageInfo.getPageNum());
+        System.out.println(userInfoList);
     }
 }

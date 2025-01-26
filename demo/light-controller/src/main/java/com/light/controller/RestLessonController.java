@@ -34,6 +34,9 @@ public class RestLessonController {
     @Autowired
     private UserInfoService userInfoService;
 
+    /**
+     * 调用数据库
+     * */
     @PostMapping("/getUserInfo")
     public Response getUserInfo(@RequestBody UserInfoDTO dto) {
         userInfoService.getUserInfo(dto);

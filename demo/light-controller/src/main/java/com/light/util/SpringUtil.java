@@ -1,8 +1,4 @@
-package com.light.util; /**
- * @Description
- * @Author light
- * @Date 2023/2/24 10:50
- **/
+package com.light.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
