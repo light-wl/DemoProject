@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- Command Line：mybatis-generator:generate -e -->
+<generatorConfiguration>
+    <context id="project-name">
+        <!-- 生成的 Java 文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化 Java 代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化 XML 代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!-- 配置pojo的序列化 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <!--注释：这个稍微复杂一点，因为要新建一个类单独处理-->
+        <!--        <commentGenerator type="com.light.util.MyCommentGenerator">-->
+        <!--            <property name="author" value="light"/>-->
+        <!--            <property name="dateFormat" value="yyyy/MM/dd"/>-->
+        <!--        </commentGenerator>-->
+        <!-- 不要注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/demo" driverClass="com.mysql.cj.jdbc.Driver"
+                        password="123456" userId="root"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+            <!-- 增加下面这行，用于配置生成LocalDateTime对应数据库的DATETIME类型 -->
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="mybatis-generator" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mybatis-generator" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="mybatis-generator" targetProject="src/main/resources" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table schema="*" tableName="user_info">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

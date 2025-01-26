@@ -17,3 +17,18 @@ CREATE TABLE `user_info` (
 
 INSERT INTO `demo`.`user_info` (`name`, `type`, `status`, `phone`, `email`, `extend_field`, `create_time`, `update_time`) 
 VALUES ('小明', 1, 1, '18045679090', '1270762753@qq.com', '{key:value}', now(), NOW());
+
+#批量更新的SQL
+UPDATE yd_org_purchase_region
+    SET
+    village_name = CASE id
+        WHEN 202 THEN "202村"
+        WHEN 203 THEN "203村"
+        WHEN 204 THEN "204村"
+    END,
+		group_name = CASE id
+        WHEN 202 THEN "第一组"
+        WHEN 203 THEN "第二组"
+        WHEN 204 THEN "第三组"
+		END
+		WHERE id in(202,203,204);
