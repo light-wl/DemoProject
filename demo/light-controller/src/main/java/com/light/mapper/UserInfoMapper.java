@@ -60,4 +60,9 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
      * 需要循环构造条件
      */
     UserInfo getUserInfoSix(@Param("userInfo") UserInfo user, @Param("age") Integer age);
+
+    /**
+     * 批量更新
+     * */
+    void batchUpdateName(List<UserInfo> userInfoList);
 }

@@ -9,6 +9,7 @@ import com.light.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void getUserInfo(UserInfoDTO dto) {
-        this.mybatisLessonMethod(dto);
+//        this.mybatisLessonMethod(dto);
+        this.batchUpdateMethod();
     }
 
     private void mybatisLessonMethod(UserInfoDTO dto) {
@@ -33,5 +35,24 @@ public class UserInfoServiceImpl implements UserInfoService {
         PageInfo pageInfo = new PageInfo<>(userInfoList);
         System.out.println(pageInfo.getPageNum());
         System.out.println(userInfoList);
+    }
+
+    private void batchUpdateMethod(){
+        // 1、构造参数
+        List<UserInfo> userInfoList = new ArrayList<>();
+        UserInfo userInfoOne = new UserInfo();
+        userInfoOne.setId(1L);
+        userInfoOne.setName("小明1");
+
+        UserInfo userInfoTwo = new UserInfo();
+        userInfoTwo.setId(4L);
+        userInfoTwo.setName("小红4");
+
+        userInfoList.add(userInfoOne);
+        userInfoList.add(userInfoTwo);
+
+        // 2、批量更新
+        userInfoMapper.batchUpdateName(userInfoList);
+
     }
 }

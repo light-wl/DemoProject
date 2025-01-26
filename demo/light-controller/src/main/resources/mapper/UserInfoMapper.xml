@@ -14,14 +14,14 @@
     </resultMap>
     <sql id="BaseSelect">
         SELECT id,
-               name,
-               type,
-               status,
-               phone,
-               email,
-               extend_field,
-               create_time,
-               update_time
+        name,
+        type,
+        status,
+        phone,
+        email,
+        extend_field,
+        create_time,
+        update_time
         FROM user_info
     </sql>
 
@@ -33,10 +33,11 @@
     <update id="createShardingTable">
         CREATE TABLE IF NOT EXISTS sharding_user_${date}
         (
-            LIKE sharding_user
+        LIKE sharding_user
         )
     </update>
 
+    <!-- 注意：如果字段不是String类型，则不能使用 ！= ''，会报错   -->
     <select id="listUserInfo" resultMap="BaseResultMap">
         <include refid="BaseSelect"/>
         <where>
@@ -46,10 +47,28 @@
             <if test="status != null">and status = #{status}</if>
             <if test="phone != null">and phone = #{phone}</if>
             <if test="email != null">and email = #{email}</if>
-            <if test="startTime != null and startTime != ''">and create_time &gt;= STR_TO_DATE(#{startTime},'%Y-%m-%d')</if>
-            <if test="endTime != null and endTime != ''">and create_time &lt; DATE_ADD(STR_TO_DATE(#{endTime},'%Y-%m-%d'), INTERVAL 1 DAY)</if>
+            <if test="startTime != null and startTime != ''">and create_time &gt;=
+                STR_TO_DATE(#{startTime},'%Y-%m-%d')
+            </if>
+            <if test="endTime != null and endTime != ''">and create_time &lt;
+                DATE_ADD(STR_TO_DATE(#{endTime},'%Y-%m-%d'), INTERVAL 1 DAY)
+            </if>
         </where>
     </select>
+
+    <!-- 批量更新：比如，不同的文章点赞数量可能不同，需要每条数据更新不同的数据 -->
+    <update id="batchUpdateName" parameterType="java.util.List">
+        UPDATE user_info
+        SET name = CASE id
+        <foreach collection="list" item="user">
+            WHEN #{user.id} THEN #{user.name}
+        </foreach>
+        END
+        WHERE id IN
+        <foreach collection="list" item="user" index="index" separator="," open="(" close=")">
+            #{user.id}
+        </foreach>
+    </update>
 
     <select id="getUserInfoTwo" resultMap="BaseResultMap">
         <include refid="BaseSelect"/>
