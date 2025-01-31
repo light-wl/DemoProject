@@ -2,6 +2,10 @@ package com.light.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +45,7 @@ public class DateUtil {
      * @return 数值
      */
     public static int getInteger(Date date, int dateType) {
-        int num = 0;
+        int num = -1;
         Calendar calendar = Calendar.getInstance();
         if (date != null) {
             calendar.setTime(date);
@@ -99,8 +103,12 @@ public class DateUtil {
      * @return 相差天数。如果失败则返回-1
      */
     public static long getIntervalDays(Date date, Date otherDate) {
-        long diffInMillis = Math.abs(date.getTime() - otherDate.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+        // 将 Date 对象转换为 LocalDate 对象
+        LocalDate localDate1 = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDate2 = otherDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // 获取相差的天数
+        long diff = ChronoUnit.DAYS.between(localDate1, localDate2);
         return diff;
     }
 
@@ -116,9 +124,10 @@ public class DateUtil {
 
 
     public static void main(String[] args) {
-        Date date = new Date();
-        System.out.println(date);
-        System.out.println(date.getTime());
+     // 创建两个 Date 对象
+        Date date1 = new Date(2024 - 1900, 4, 20); // 假设这是 2024年5月20日
+        Date date2 = new Date(2024 - 1900, 5, 21); // 假设这是 2024年5月21日
+        System.out.println(getIntervalDays(date1, date2));
     }
 }
 
@@ -128,11 +137,11 @@ public class DateUtil {
  * 这个变量的值为自1997-01-01 00:00:00(GMT)至Date对象记录时刻所经过的毫秒数
  * 可以通过getTime()方法,获取这个变量值,且这个变量值和时区没有关系
  * 全球任意地点同时执行new Date().getTime()获取到的值相同
-
+ * <p>
  * 2、格式化Date对象成字符串, 涉及时区
  * 不管是调用Date对象的toString方法, 还是使用SimpleDateFormat的format方法去格式化Date对象,或者使用parse解析字符串成Date对象都会涉及到时区,
  * 也就是说Date对象没有时区概念, 但是格式化Date对象, 或者解析字符串成Date对象时, 是有时区概念的
-
+ * <p>
  * 1. 所属的包和引入的 Java 版本
  * java.util.Date 属于 Java 的旧日期时间 API，它从 Java 的早期版本就存在。
  * java.time.LocalDate 属于 Java 8 引入的新日期时间 API，位于 java.time 包中。
