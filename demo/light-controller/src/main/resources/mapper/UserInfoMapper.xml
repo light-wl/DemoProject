@@ -41,18 +41,28 @@
     <select id="listUserInfo" resultMap="BaseResultMap">
         <include refid="BaseSelect"/>
         <where>
-            <if test="id != null">and id = #{id}</if>
-            <if test="name != null and name != ''">and `name` = #{name}</if>
-            <if test="type != null">and `type` = #{type}</if>
-            <if test="status != null">and status = #{status}</if>
-            <if test="phone != null">and phone = #{phone}</if>
-            <if test="email != null">and email = #{email}</if>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="name != null AND name != ''">AND `name` = #{name}</if>
+            <if test="type != null">AND `type` = #{type}</if>
+            <if test="status != null">AND status = #{status}</if>
+            <if test="phone != null">AND phone = #{phone}</if>
+            <if test="email != null">AND email = #{email}</if>
+            <if test="true">AND is_deleted = 0</if>
+
             <if test="startTime != null and startTime != ''">and create_time &gt;=
                 STR_TO_DATE(#{startTime},'%Y-%m-%d')
             </if>
             <if test="endTime != null and endTime != ''">and create_time &lt;
                 DATE_ADD(STR_TO_DATE(#{endTime},'%Y-%m-%d'), INTERVAL 1 DAY)
             </if>
+
+            <if test="idList != null and idList.size() > 0">
+                AND id IN
+                <foreach collection="idList" item="id" index="index" separator="," open="(" close=")">
+                    #{id}
+                </foreach>
+            </if>
+            
         </where>
     </select>
 
@@ -82,7 +92,7 @@
 
     <select id="getUserInfoFour" resultMap="BaseResultMap">
         <include refid="BaseSelect"/>
-        WHERE id in
+        WHERE id IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -90,7 +100,7 @@
 
     <select id="getUserInfoFive" resultMap="BaseResultMap">
         <include refid="BaseSelect"/>
-        WHERE id in
+        WHERE id IN
         <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -99,7 +109,7 @@
     <select id="getUserInfoSix" resultMap="BaseResultMap">
         <include refid="BaseSelect"/>
         WHERE sex = #{userInfoModel.sex}
-        and age = #{age};
+        AND age = #{age};
     </select>
 </mapper>
 

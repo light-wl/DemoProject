@@ -3,6 +3,7 @@ package com.light.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author ：light
@@ -15,6 +16,7 @@ public class UserInfoDTO {
      * 主键ID
      */
     private Long id;
+    private List<Long> idList;
 
     /**
      * 姓名
