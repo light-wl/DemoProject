@@ -5,11 +5,7 @@
 *.ipr
 
 .DS_Store
-.DS_Store
 *.war
 *.jsp
 *.jar
 target/
-target/classes/
-
-DubboProject/dubbo-provider/target/classes/com/alibaba/dubbo/demo/impl/DemoServiceImpl.class
