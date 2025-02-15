@@ -6,4 +6,10 @@
 
 .DS_Store
 .DS_Store
-DubboProject/dubbo-api/target/dubbo-api.war
+*.war
+*.jsp
+*.jar
+target/
+target/classes/
+
+DubboProject/dubbo-provider/target/classes/com/alibaba/dubbo/demo/impl/DemoServiceImpl.class
