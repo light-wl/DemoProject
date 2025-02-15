@@ -5,3 +5,5 @@
 *.ipr
 
 .DS_Store
+.DS_Store
+DubboProject/dubbo-api/target/dubbo-api.war
