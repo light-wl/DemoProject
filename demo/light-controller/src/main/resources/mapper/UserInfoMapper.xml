@@ -43,6 +43,7 @@
         <where>
             <if test="id != null">AND id = #{id}</if>
             <if test="name != null AND name != ''">AND `name` = #{name}</if>
+            <if test="name != null AND name != ''">AND `name` LIKE CONCAT('%', #{name}, '%')</if>
             <if test="type != null">AND `type` = #{type}</if>
             <if test="status != null">AND status = #{status}</if>
             <if test="phone != null">AND phone = #{phone}</if>
