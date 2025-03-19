@@ -1,7 +1,7 @@
 package com.light.controller;
 
 import com.light.service.${entityName}Service;
-import com.light.entity.${entityName};
+import com.light.model.${entityName};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

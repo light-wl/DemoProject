@@ -1,6 +1,6 @@
 package com.light.service;
 
-import com.light.entity.${entityName};
+import com.light.model.${entityName};
 import com.light.mapper.${entityName}Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

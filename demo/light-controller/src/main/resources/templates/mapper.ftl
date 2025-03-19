@@ -1,6 +1,6 @@
 package com.light.mapper;
 
-import com.light.entity.${entityName};
+import com.light.model.${entityName};
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
