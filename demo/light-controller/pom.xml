@@ -39,6 +39,13 @@
         <!--            <scope>compile</scope>-->
         <!--        </dependency>-->
 
+<!-- 生成模板代码 -->
+                <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.31</version>
+        </dependency>
+
         <!-- fastjson依赖 -->
         <dependency>
             <groupId>com.google.guava</groupId>
