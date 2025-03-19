@@ -1,4 +1,4 @@
-package com.light.a.javabase;
+package com.light.javabase;
 
 import java.util.ArrayList;
 import java.util.List;

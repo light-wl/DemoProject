@@ -1,4 +1,4 @@
-package com.light.a.javabase;
+package com.light.javabase;
 
 import com.light.model.UserInfo;
 import org.springframework.web.bind.annotation.GetMapping;

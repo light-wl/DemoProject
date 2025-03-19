@@ -1,4 +1,4 @@
-package com.light.a.javabase;
+package com.light.javabase;
 
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
