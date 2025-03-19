@@ -66,15 +66,14 @@ public class CodeTwo {
 
     private static List<Map<String, String>> getTableFields(String tableName) throws SQLException {
         List<Map<String, String>> fields = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName + " LIMIT 0")) {
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-            for (int i = 1; i <= columnCount; i++) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet columns = metaData.getColumns(null, null, tableName, null);
+            while (columns.next()) {
                 Map<String, String> field = new HashMap<>();
-                field.put("name", metaData.getColumnName(i));
-                field.put("type", getJavaType(metaData.getColumnType(i)));
+                field.put("name", columns.getString("COLUMN_NAME"));
+                field.put("type", getJavaType(columns.getInt("DATA_TYPE")));
+                field.put("comment", columns.getString("REMARKS"));
                 fields.add(field);
             }
         }
@@ -98,8 +97,7 @@ public class CodeTwo {
         }
     }
 
-    private static void generateFile(Configuration cfg, String templateName, String entityName, String tableName,
-                                     String packageName) {
+    private static void generateFile(Configuration cfg, String templateName, String entityName, String tableName, String packageName) {
         try {
             Template template = cfg.getTemplate(templateName);
             Map<String, Object> data = new HashMap<>();
@@ -107,8 +105,7 @@ public class CodeTwo {
             data.put("entityNameLowercase", entityName.substring(0, 1).toLowerCase() + entityName.substring(1));
             data.put("tableName", tableName);
 
-            String outputPath = OUTPUT_DIR + "/" + packageName + "/" + entityName + templateName.replace(".ftl",
-                    ".java");
+            String outputPath = OUTPUT_DIR + "/" + packageName + "/" + entityName + templateName.replace(".ftl", ".java");
             File outputFile = new File(outputPath);
             outputFile.getParentFile().mkdirs();
 
@@ -121,24 +118,29 @@ public class CodeTwo {
         }
     }
 
-    private static void generateModelFile(Configuration cfg, String entityName, String tableName, String packageName,
-                                          List<Map<String, String>> fields) {
+    private static void generateModelFile(Configuration cfg, String entityName, String tableName, String packageName, List<Map<String, String>> fields) {
         try {
             StringBuilder modelCode = new StringBuilder();
             modelCode.append("package com.light.model;\n\n");
-            modelCode.append("import lombok.Data;\n\n");
+            modelCode.append("import lombok.Data;\n");
+            modelCode.append("import java.util.Date;;\n");
             modelCode.append("import java.io.Serializable;\n\n");
             modelCode.append("@Data\n");
             modelCode.append("public class ").append(entityName).append(" implements Serializable {\n\n");
             modelCode.append("    private static final long serialVersionUID = 1L;\n\n");
 
-            // 生成字段
+            // 生成字段及注释
             for (Map<String, String> field : fields) {
                 String fieldName = field.get("name");
                 String fieldType = field.get("type");
-                modelCode.append("    private ").append(fieldType).append(" ").append(fieldName).append(";\n");
+                String fieldComment = field.get("comment");
+                if (fieldComment != null && !fieldComment.isEmpty()) {
+                    modelCode.append("    /**\n");
+                    modelCode.append("     * ").append(fieldComment).append("\n");
+                    modelCode.append("     */\n");
+                }
+                modelCode.append("    private ").append(fieldType).append(" ").append(fieldName).append(";\n\n");
             }
-
             modelCode.append("}");
 
             String outputPath = OUTPUT_DIR + "/" + packageName + "/" + entityName + ".java";
@@ -154,8 +156,7 @@ public class CodeTwo {
         }
     }
 
-    private static void generateMapperXmlFile(Configuration cfg, String templateName, String entityName,
-                                              String tableName, List<Map<String, String>> fields) {
+    private static void generateMapperXmlFile(Configuration cfg, String templateName, String entityName, String tableName, List<Map<String, String>> fields) {
         try {
             Template template = cfg.getTemplate(templateName);
             Map<String, Object> data = new HashMap<>();
