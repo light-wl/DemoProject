@@ -84,21 +84,22 @@ public class CodeTwo {
     private static String getJavaType(int sqlType) {
         switch (sqlType) {
             case Types.INTEGER:
+            case Types.TINYINT:
                 return "Integer";
             case Types.BIGINT:
                 return "Long";
             case Types.VARCHAR:
                 return "String";
             case Types.DATE:
-                return "java.util.Date";
             case Types.TIMESTAMP:
-                return "java.sql.Timestamp";
+                return "Date";
             default:
                 return "Object";
         }
     }
 
-    private static void generateFile(Configuration cfg, String templateName, String entityName, String tableName, String packageName) {
+    private static void generateFile(Configuration cfg, String templateName, String entityName, String tableName,
+                                     String packageName) {
         try {
             Template template = cfg.getTemplate(templateName);
             Map<String, Object> data = new HashMap<>();
@@ -106,7 +107,8 @@ public class CodeTwo {
             data.put("entityNameLowercase", entityName.substring(0, 1).toLowerCase() + entityName.substring(1));
             data.put("tableName", tableName);
 
-            String outputPath = OUTPUT_DIR + "/" + packageName + "/" + entityName + templateName.replace(".ftl", ".java");
+            String outputPath = OUTPUT_DIR + "/" + packageName + "/" + entityName + templateName.replace(".ftl",
+                    ".java");
             File outputFile = new File(outputPath);
             outputFile.getParentFile().mkdirs();
 
@@ -119,11 +121,14 @@ public class CodeTwo {
         }
     }
 
-    private static void generateModelFile(Configuration cfg, String entityName, String tableName, String packageName, List<Map<String, String>> fields) {
+    private static void generateModelFile(Configuration cfg, String entityName, String tableName, String packageName,
+                                          List<Map<String, String>> fields) {
         try {
             StringBuilder modelCode = new StringBuilder();
-            modelCode.append("package com.example.demo.entity;\n\n");
+            modelCode.append("package com.light.model;\n\n");
+            modelCode.append("import lombok.Data;\n\n");
             modelCode.append("import java.io.Serializable;\n\n");
+            modelCode.append("@Data\n");
             modelCode.append("public class ").append(entityName).append(" implements Serializable {\n\n");
             modelCode.append("    private static final long serialVersionUID = 1L;\n\n");
 
@@ -132,21 +137,6 @@ public class CodeTwo {
                 String fieldName = field.get("name");
                 String fieldType = field.get("type");
                 modelCode.append("    private ").append(fieldType).append(" ").append(fieldName).append(";\n");
-            }
-
-            modelCode.append("\n");
-
-            // 生成 getter 和 setter 方法
-            for (Map<String, String> field : fields) {
-                String fieldName = field.get("name");
-                String fieldType = field.get("type");
-                String capitalizedFieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-                modelCode.append("    public ").append(fieldType).append(" get").append(capitalizedFieldName).append("() {\n");
-                modelCode.append("        return ").append(fieldName).append(";\n");
-                modelCode.append("    }\n\n");
-                modelCode.append("    public void set").append(capitalizedFieldName).append("(").append(fieldType).append(" ").append(fieldName).append(") {\n");
-                modelCode.append("        this.").append(fieldName).append(" = ").append(fieldName).append(";\n");
-                modelCode.append("    }\n\n");
             }
 
             modelCode.append("}");
@@ -164,7 +154,8 @@ public class CodeTwo {
         }
     }
 
-    private static void generateMapperXmlFile(Configuration cfg, String templateName, String entityName, String tableName, List<Map<String, String>> fields) {
+    private static void generateMapperXmlFile(Configuration cfg, String templateName, String entityName,
+                                              String tableName, List<Map<String, String>> fields) {
         try {
             Template template = cfg.getTemplate(templateName);
             Map<String, Object> data = new HashMap<>();
