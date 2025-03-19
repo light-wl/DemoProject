@@ -49,15 +49,15 @@ public class CodeTwo {
             List<Map<String, String>> fields = getTableFields(tableName);
 
             // 生成 Controller 代码
-            generateFile(cfg, "controller.ftl", entityName, tableName, "controller");
+            generateFile(cfg, "Controller.ftl", entityName, tableName, "controller");
             // 生成 Service 代码
-            generateFile(cfg, "service.ftl", entityName, tableName, "service");
+            generateFile(cfg, "Service.ftl", entityName, tableName, "service");
             // 生成 Mapper 代码
-            generateFile(cfg, "mapper.ftl", entityName, tableName, "mapper");
+            generateFile(cfg, "Mapper.ftl", entityName, tableName, "mapper");
             // 生成 Model 代码
             generateModelFile(cfg, entityName, tableName, "model", fields);
             // 生成 Mapper.xml 代码
-            generateMapperXmlFile(cfg, "mapper.xml.ftl", entityName, tableName, fields);
+            generateMapperXmlFile(cfg, "Mapper.xml.ftl", entityName, tableName, fields);
 
         } catch (IOException | SQLException e) {
             e.printStackTrace();
