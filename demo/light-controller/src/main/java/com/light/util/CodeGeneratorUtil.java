@@ -18,10 +18,13 @@ import java.util.Map;
  **/
 public class CodeGeneratorUtil {
 
-    private static final String TEMPLATE_DIR = "src/main/resources/templates";
-    private static final String OUTPUT_DIR = "src/main/java/com/light/util";
+    private static String TEMPLATE_DIR = "/light-controller/src/main/resources/templates";
+    private static String OUTPUT_DIR = "/light-controller/src/main/java/com/light";
 
     public static void main(String[] args) {
+        String projectRoot = new File("").getAbsolutePath();
+        TEMPLATE_DIR = projectRoot + TEMPLATE_DIR;
+        OUTPUT_DIR = projectRoot + OUTPUT_DIR;
         String entityName = "Article";
         generateCode(entityName);
     }
