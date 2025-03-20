@@ -71,13 +71,26 @@ public class CodeGeneratorUtil {
             ResultSet columns = metaData.getColumns(null, null, tableName, null);
             while (columns.next()) {
                 Map<String, String> field = new HashMap<>();
-                field.put("name", columns.getString("COLUMN_NAME"));
+                field.put("columnName", columns.getString("COLUMN_NAME"));
+                field.put("modelName", getModelName(columns.getString("COLUMN_NAME")));
                 field.put("type", getJavaType(columns.getInt("DATA_TYPE")));
                 field.put("comment", columns.getString("REMARKS"));
                 fields.add(field);
             }
         }
         return fields;
+    }
+
+    private static String getModelName(String columnName) {
+        if (columnName == null) return "";
+        String[] strArray = columnName.split("_");
+        StringBuilder builder = new StringBuilder();
+        builder.append(strArray[0]);
+        for (int i = 1; i < strArray.length; i++) {
+            String result = Character.toUpperCase(strArray[i].charAt(0)) + strArray[i].substring(1);
+            builder.append(result);
+        }
+        return builder.toString();
     }
 
     private static String getJavaType(int sqlType) {
@@ -97,7 +110,8 @@ public class CodeGeneratorUtil {
         }
     }
 
-    private static void generateFile(Configuration cfg, String templateName, String entityName, String tableName, String packageName) {
+    private static void generateFile(Configuration cfg, String templateName, String entityName, String tableName,
+                                     String packageName) {
         try {
             Template template = cfg.getTemplate(templateName);
             Map<String, Object> data = new HashMap<>();
@@ -119,7 +133,8 @@ public class CodeGeneratorUtil {
         }
     }
 
-    private static void generateModelFile(Configuration cfg, String entityName, String tableName, String packageName, List<Map<String, String>> fields) {
+    private static void generateModelFile(Configuration cfg, String entityName, String tableName, String packageName,
+                                          List<Map<String, String>> fields) {
         try {
             StringBuilder modelCode = new StringBuilder();
             modelCode.append("package com.light.model;\n\n");
@@ -132,7 +147,7 @@ public class CodeGeneratorUtil {
 
             // 生成字段及注释
             for (Map<String, String> field : fields) {
-                String fieldName = field.get("name");
+                String modelName = field.get("modelName");
                 String fieldType = field.get("type");
                 String fieldComment = field.get("comment");
                 if (fieldComment != null && !fieldComment.isEmpty()) {
@@ -140,7 +155,7 @@ public class CodeGeneratorUtil {
                     modelCode.append("     * ").append(fieldComment).append("\n");
                     modelCode.append("     */\n");
                 }
-                modelCode.append("    private ").append(fieldType).append(" ").append(fieldName).append(";\n\n");
+                modelCode.append("    private ").append(fieldType).append(" ").append(modelName).append(";\n\n");
             }
             modelCode.append("}");
 
@@ -157,7 +172,8 @@ public class CodeGeneratorUtil {
         }
     }
 
-    private static void generateMapperXmlFile(Configuration cfg, String templateName, String entityName, String tableName, List<Map<String, String>> fields) {
+    private static void generateMapperXmlFile(Configuration cfg, String templateName, String entityName,
+                                              String tableName, List<Map<String, String>> fields) {
         try {
             Template template = cfg.getTemplate(templateName);
             Map<String, Object> data = new HashMap<>();

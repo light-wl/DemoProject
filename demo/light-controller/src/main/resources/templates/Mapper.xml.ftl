@@ -3,49 +3,58 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.light.mapper.${entityName}Mapper">
-
-    <select id="getAll" resultType="com.light.model.${entityName}">
+<!-- 基础查询 -->
+    <sql id="BaseSelect">
         SELECT
         <#list fields as field>
-            ${field.name}<#if field_has_next>,</#if>
+            ${field.modelName}<#if field_has_next>,</#if>
         </#list>
         FROM ${tableName}
+    </sql>
+
+    <!-- 查询所有记录 -->
+    <select id="getAll" resultType="com.light.model.${entityName}">
+        <include refid="BaseSelect"/>
     </select>
 
-    <select id="getById" resultType="com.example.demo.entity.${entityName}">
-        SELECT
-        <#list fields as field>
-            ${field.name}<#if field_has_next>,</#if>
-        </#list>
-        FROM ${tableName} WHERE id = #{id}
+    <!-- 根据 ID 查询单条记录 -->
+    <select id="getById" resultType="com.light.model.${entityName}">
+        <include refid="BaseSelect"/>
     </select>
 
-    <insert id="save" parameterType="com.example.demo.entity.${entityName}">
+    <!-- 插入记录 -->
+    <insert id="save" parameterType="com.light.model.${entityName}">
         INSERT INTO ${tableName} (
         <#list fields as field>
-            ${field.name}<#if field_has_next>,</#if>
+            <#if field.modelName != "id">
+                ${field.modelName}<#if field_has_next>,</#if>
+            </#if>
         </#list>
         ) VALUES (
         <#list fields as field>
-            #{${field.name}}<#if field_has_next>,</#if>
+             ${field.modelName}<#if field_has_next>,</#if>
         </#list>
         )
     </insert>
 
-    <update id="update" parameterType="com.example.demo.entity.${entityName}">
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.light.model.${entityName}">
         UPDATE ${tableName}
         <set>
             <#list fields as field>
-                <#if field.name != "id">
-                    ${field.name} = #{${field.name}}<#if field_has_next>,</#if>
+                <#if field.modelName != "id">
+                    ${field.modelName} = #{0}<#if field_has_next>,</#if>
                 </#if>
             </#list>
         </set>
-        WHERE id = #{id}
     </update>
 
+    <!-- 删除记录 -->
     <delete id="delete" parameterType="java.lang.Long">
-        DELETE FROM ${tableName} WHERE id = #{id}
+        DELETE FROM ${tableName}
+        <#noparse>
+            WHERE id = #{id}
+        </#noparse>
     </delete>
 
 </mapper>

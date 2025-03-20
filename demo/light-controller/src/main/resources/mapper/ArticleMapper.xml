@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.light.mapper.ArticleMapper">
+<!-- 基础查询 -->
+    <sql id="BaseSelect">
+        SELECT
+            id,
+            title,
+            content,
+            upvoteNum,
+            collectNum,
+            commentNum,
+            viewNum,
+            label,
+            imageName,
+            priority,
+            isDelete,
+            createTime,
+            updateTime
+        FROM article
+    </sql>
+
+    <!-- 查询所有记录 -->
+    <select id="getAll" resultType="com.light.model.Article">
+        <include refid="BaseSelect"/>
+    </select>
+
+    <!-- 根据 ID 查询单条记录 -->
+    <select id="getById" resultType="com.light.model.Article">
+        <include refid="BaseSelect"/>
+    </select>
+
+    <!-- 插入记录 -->
+    <insert id="save" parameterType="com.light.model.Article">
+        INSERT INTO article (
+                title,
+                content,
+                upvoteNum,
+                collectNum,
+                commentNum,
+                viewNum,
+                label,
+                imageName,
+                priority,
+                isDelete,
+                createTime,
+                updateTime
+        ) VALUES (
+             id,
+             title,
+             content,
+             upvoteNum,
+             collectNum,
+             commentNum,
+             viewNum,
+             label,
+             imageName,
+             priority,
+             isDelete,
+             createTime,
+             updateTime
+        )
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.light.model.Article">
+        UPDATE article
+        <set>
+                    title = 0,
+                    content = 0,
+                    upvoteNum = 0,
+                    collectNum = 0,
+                    commentNum = 0,
+                    viewNum = 0,
+                    label = 0,
+                    imageName = 0,
+                    priority = 0,
+                    isDelete = 0,
+                    createTime = 0,
+                    updateTime = 0
+        </set>
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM article
+            WHERE id = #{id}
+    </delete>
+
+</mapper>

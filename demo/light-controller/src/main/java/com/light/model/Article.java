@@ -24,22 +24,22 @@ public class Article implements Serializable {
     /**
      * 点赞数
      */
-    private Integer upvote_num;
+    private Integer upvoteNum;
 
     /**
      * 收藏数
      */
-    private Integer collect_num;
+    private Integer collectNum;
 
     /**
      * 评论数
      */
-    private Integer comment_num;
+    private Integer commentNum;
 
     /**
      * 浏览量
      */
-    private Integer view_num;
+    private Integer viewNum;
 
     /**
      * 标签ID，逗号分割
@@ -49,7 +49,7 @@ public class Article implements Serializable {
     /**
      * 封面
      */
-    private String image_name;
+    private String imageName;
 
     /**
      * 权重 首页文章排序使用
@@ -59,16 +59,16 @@ public class Article implements Serializable {
     /**
      * 该文章是否被删除 0否 1是
      */
-    private Integer is_delete;
+    private Integer isDelete;
 
     /**
      * 创建日期
      */
-    private Date create_time;
+    private Date createTime;
 
     /**
      * 更新日期
      */
-    private Date update_time;
+    private Date updateTime;
 
 }
