@@ -3,6 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.light.mapper.${entityName}Mapper">
+
+<!-- 返回信息 -->
+    <resultMap id="BaseResultMap" type="com.light.model.${entityName}">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <#list fields as field>
+        <result property="${field.modelName}" column="${field.columnName}" jdbcType="${field.columnType}" />
+        </#list>
+    </resultMap>
+
 <!-- 基础查询 -->
     <sql id="BaseSelect">
         SELECT
@@ -32,7 +41,9 @@
         </#list>
         ) VALUES (
         <#list fields as field>
+            <#if field.modelName != "id">
              ${field.modelName}<#if field_has_next>,</#if>
+             </#if>
         </#list>
         )
     </insert>
@@ -43,10 +54,13 @@
         <set>
             <#list fields as field>
                 <#if field.modelName != "id">
-                    ${field.modelName} = #{0}<#if field_has_next>,</#if>
+                    <if test="${field.modelName} != null">${field.columnName} = ${field.modelName}<#if field_has_next>,</#if></if>
                 </#if>
             </#list>
         </set>
+        <#noparse>
+            WHERE id = #{id}
+        </#noparse>
     </update>
 
     <!-- 删除记录 -->

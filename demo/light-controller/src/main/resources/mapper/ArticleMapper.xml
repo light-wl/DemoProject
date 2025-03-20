@@ -3,6 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.light.mapper.ArticleMapper">
+
+<!-- 返回信息 -->
+    <resultMap id="BaseResultMap" type="com.light.model.Article">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="id" column="id" jdbcType="INTEGER" />
+        <result property="title" column="title" jdbcType="VARCHAR" />
+        <result property="content" column="content" jdbcType="VARCHAR" />
+        <result property="upvoteNum" column="upvote_num" jdbcType="INTEGER" />
+        <result property="collectNum" column="collect_num" jdbcType="INTEGER" />
+        <result property="commentNum" column="comment_num" jdbcType="INTEGER" />
+        <result property="viewNum" column="view_num" jdbcType="INTEGER" />
+        <result property="label" column="label" jdbcType="VARCHAR" />
+        <result property="imageName" column="image_name" jdbcType="VARCHAR" />
+        <result property="priority" column="priority" jdbcType="INTEGER" />
+        <result property="isDelete" column="is_delete" jdbcType="TINYINT" />
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+    </resultMap>
+
 <!-- 基础查询 -->
     <sql id="BaseSelect">
         SELECT
@@ -48,7 +67,6 @@
                 createTime,
                 updateTime
         ) VALUES (
-             id,
              title,
              content,
              upvoteNum,
@@ -68,19 +86,20 @@
     <update id="update" parameterType="com.light.model.Article">
         UPDATE article
         <set>
-                    title = 0,
-                    content = 0,
-                    upvoteNum = 0,
-                    collectNum = 0,
-                    commentNum = 0,
-                    viewNum = 0,
-                    label = 0,
-                    imageName = 0,
-                    priority = 0,
-                    isDelete = 0,
-                    createTime = 0,
-                    updateTime = 0
+                    <if test="title != null">title = title ,</if>
+                    <if test="content != null">content = content ,</if>
+                    <if test="upvoteNum != null">upvote_num = upvoteNum ,</if>
+                    <if test="collectNum != null">collect_num = collectNum ,</if>
+                    <if test="commentNum != null">comment_num = commentNum ,</if>
+                    <if test="viewNum != null">view_num = viewNum ,</if>
+                    <if test="label != null">label = label ,</if>
+                    <if test="imageName != null">image_name = imageName ,</if>
+                    <if test="priority != null">priority = priority ,</if>
+                    <if test="isDelete != null">is_delete = isDelete ,</if>
+                    <if test="createTime != null">create_time = createTime ,</if>
+                    <if test="updateTime != null">update_time = updateTime </if>
         </set>
+            WHERE id = #{id}
     </update>
 
     <!-- 删除记录 -->

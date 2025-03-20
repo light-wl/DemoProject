@@ -73,7 +73,8 @@ public class CodeGeneratorUtil {
                 Map<String, String> field = new HashMap<>();
                 field.put("columnName", columns.getString("COLUMN_NAME"));
                 field.put("modelName", getModelName(columns.getString("COLUMN_NAME")));
-                field.put("type", getJavaType(columns.getInt("DATA_TYPE")));
+                field.put("columnType", getColumnType(columns.getInt("DATA_TYPE")));
+                field.put("modelType", getJavaType(columns.getInt("DATA_TYPE")));
                 field.put("comment", columns.getString("REMARKS"));
                 fields.add(field);
             }
@@ -93,6 +94,25 @@ public class CodeGeneratorUtil {
         return builder.toString();
     }
 
+    private static String getColumnType(int sqlType) {
+        switch (sqlType) {
+            case Types.INTEGER:
+                return "INTEGER";
+            case Types.TINYINT:
+                return "TINYINT";
+            case Types.BIGINT:
+                return "BIGINT";
+            case Types.VARCHAR:
+                return "VARCHAR";
+            case Types.DATE:
+                return "DATE";
+            case Types.TIMESTAMP:
+                return "TIMESTAMP";
+            default:
+                return "VARCHAR";
+        }
+    }
+
     private static String getJavaType(int sqlType) {
         switch (sqlType) {
             case Types.INTEGER:
@@ -106,7 +126,7 @@ public class CodeGeneratorUtil {
             case Types.TIMESTAMP:
                 return "Date";
             default:
-                return "Object";
+                return "String";
         }
     }
 
@@ -148,14 +168,14 @@ public class CodeGeneratorUtil {
             // 生成字段及注释
             for (Map<String, String> field : fields) {
                 String modelName = field.get("modelName");
-                String fieldType = field.get("type");
+                String modelType = field.get("modelType");
                 String fieldComment = field.get("comment");
                 if (fieldComment != null && !fieldComment.isEmpty()) {
                     modelCode.append("    /**\n");
                     modelCode.append("     * ").append(fieldComment).append("\n");
                     modelCode.append("     */\n");
                 }
-                modelCode.append("    private ").append(fieldType).append(" ").append(modelName).append(";\n\n");
+                modelCode.append("    private ").append(modelType).append(" ").append(modelName).append(";\n\n");
             }
             modelCode.append("}");
 

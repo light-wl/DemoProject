@@ -19,7 +19,7 @@ public class Article implements Serializable {
     /**
      * 正文
      */
-    private Object content;
+    private String content;
 
     /**
      * 点赞数
